@@ -2,11 +2,11 @@
 /**
  * Manage projects admin screen.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Admin
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -16,7 +16,7 @@
  * @since  1.0.0
  * @access public
  */
-final class CCP_Manage_Projects {
+final class MC_Manage_Projects {
 
 	/**
 	 * Sets up the needed actions.
@@ -30,10 +30,10 @@ final class CCP_Manage_Projects {
 		add_action( 'load-edit.php', array( $this, 'load' ) );
 
 		// Hook the handler to the manage projects load screen.
-		add_action( 'ccp_load_manage_projects', array( $this, 'handler' ), 0 );
+		add_action( 'mc_load_manage_projects', array( $this, 'handler' ), 0 );
 
 		// Add the help tabs.
-		add_action( 'ccp_load_manage_projects', array( $this, 'add_help_tabs' ) );
+		add_action( 'mc_load_manage_projects', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
@@ -47,14 +47,14 @@ final class CCP_Manage_Projects {
 	public function load() {
 
 		$screen       = get_current_screen();
-		$project_type = ccp_get_project_post_type();
+		$project_type = mc_get_project_post_type();
 
 		// Bail if not on the projects screen.
 		if ( empty( $screen->post_type ) || $project_type !== $screen->post_type )
 			return;
 
 		// Custom action for loading the manage projects screen.
-		do_action( 'ccp_load_manage_projects' );
+		do_action( 'mc_load_manage_projects' );
 
 		// Filter the `request` vars.
 		add_filter( 'request', array( $this, 'request' ) );
@@ -94,7 +94,7 @@ final class CCP_Manage_Projects {
 
 		// If viewing sticky projects.
 		if ( isset( $_GET['sticky'] ) && 1 == $_GET['sticky'] )
-			$new_vars['post__in'] = ccp_get_sticky_projects();
+			$new_vars['post__in'] = mc_get_sticky_projects();
 
 		// Return the vars, merging with the new ones.
 		return array_merge( $vars, $new_vars );
@@ -111,8 +111,8 @@ final class CCP_Manage_Projects {
 
 		<style type="text/css">@media only screen and (min-width: 783px) {
 			.fixed .column-thumbnail { width: 100px; }
-			.fixed .column-taxonomy-<?php echo esc_attr( ccp_get_category_taxonomy() ); ?>,
-			.fixed .column-taxonomy-<?php echo esc_attr( ccp_get_tag_taxonomy() ); ?> { width: 15%; }
+			.fixed .column-taxonomy-<?php echo esc_attr( mc_get_category_taxonomy() ); ?>,
+			.fixed .column-taxonomy-<?php echo esc_attr( mc_get_tag_taxonomy() ); ?> { width: 15%; }
 		}</style>
 	<?php }
 
@@ -126,12 +126,12 @@ final class CCP_Manage_Projects {
 	 */
 	public function views( $views ) {
 
-		$count = count( ccp_get_sticky_projects() );
+		$count = count( mc_get_sticky_projects() );
 
 		if ( 0 < $count ) {
-			$post_type = ccp_get_project_post_type();
+			$post_type = mc_get_project_post_type();
 
-			$noop = _n( 'Sticky <span class="count">(%s)</span>', 'Sticky <span class="count">(%s)</span>', $count, 'custom-content-portfolio' );
+			$noop = _n( 'Sticky <span class="count">(%s)</span>', 'Sticky <span class="count">(%s)</span>', $count, 'music-composition' );
 			$text = sprintf( $noop, number_format_i18n( $count ) );
 
 			$views['sticky'] = sprintf( '<a href="%s">%s</a>', add_query_arg( array( 'post_type' => $post_type, 'sticky' => 1 ), admin_url( 'edit.php' ) ), $text );
@@ -149,7 +149,7 @@ final class CCP_Manage_Projects {
 	 */
 	public function categories_dropdown() {
 
-		$this->terms_dropdown( ccp_get_category_taxonomy() );
+		$this->terms_dropdown( mc_get_category_taxonomy() );
 	}
 
 	/**
@@ -161,7 +161,7 @@ final class CCP_Manage_Projects {
 	 */
 	public function tags_dropdown() {
 
-		$this->terms_dropdown( ccp_get_tag_taxonomy() );
+		$this->terms_dropdown( mc_get_tag_taxonomy() );
 	}
 
 	/**
@@ -205,11 +205,11 @@ final class CCP_Manage_Projects {
 
 		$new_columns = array(
 			'cb'    => $columns['cb'],
-			'title' => __( 'Project', 'custom-content-portfolio' )
+			'title' => __( 'Project', 'music-composition' )
 		);
 
 		if ( current_theme_supports( 'post-thumbnails' ) )
-			$new_columns['thumbnail'] = __( 'Thumbnail', 'custom-content-portfolio' );
+			$new_columns['thumbnail'] = __( 'Thumbnail', 'music-composition' );
 
 		$columns = array_merge( $new_columns, $columns );
 
@@ -250,7 +250,7 @@ final class CCP_Manage_Projects {
 	public function display_post_states( $states, $post ) {
 
 		if ( ccp_is_project_sticky( $post->ID ) )
-			$states['sticky'] = esc_html__( 'Sticky', 'custom-content-portfolio' );
+			$states['sticky'] = esc_html__( 'Sticky', 'music-composition' );
 
 		return $states;
 	}
@@ -266,20 +266,20 @@ final class CCP_Manage_Projects {
 	 */
 	function row_actions( $actions, $post ) {
 
-		$post_type_object = get_post_type_object( ccp_get_project_post_type() );
-		$project_id = ccp_get_project_id( $post->ID );
+		$post_type_object = get_post_type_object( mc_get_project_post_type() );
+		$project_id = mc_get_project_id( $post->ID );
 
 		if ( 'trash' === get_post_status( $project_id ) || ! current_user_can( $post_type_object->cap->publish_posts ) )
 			return $actions;
 
-		$current_url = remove_query_arg( array( 'project_id', 'ccp_project_notice' ) );
+		$current_url = remove_query_arg( array( 'project_id', 'mc_project_notice' ) );
 
 		// Build text.
-		$text = ccp_is_project_sticky( $project_id ) ? esc_html__( 'Unstick', 'custom-content-portfolio' ) : esc_html__( 'Stick', 'custom-content-portfolio' );
+		$text = mc_is_project_sticky( $project_id ) ? esc_html__( 'Unstick', 'music-composition' ) : esc_html__( 'Stick', 'music-composition' );
 
 		// Build toggle URL.
-		$url = add_query_arg( array( 'project_id' => $project_id, 'action' => 'ccp_toggle_sticky' ), $current_url );
-		$url = wp_nonce_url( $url, "ccp_toggle_sticky_{$project_id}" );
+		$url = add_query_arg( array( 'project_id' => $project_id, 'action' => 'mc_toggle_sticky' ), $current_url );
+		$url = wp_nonce_url( $url, "mc_toggle_sticky_{$project_id}" );
 
 		// Add sticky action.
 		$actions['sticky'] = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), 'sticky', esc_html( $text ) );
@@ -305,17 +305,17 @@ final class CCP_Manage_Projects {
 	public function handler() {
 
 		// Checks if the sticky toggle link was clicked.
-		if ( isset( $_GET['action'] ) && 'ccp_toggle_sticky' === $_GET['action'] && isset( $_GET['project_id'] ) ) {
+		if ( isset( $_GET['action'] ) && 'mc_toggle_sticky' === $_GET['action'] && isset( $_GET['project_id'] ) ) {
 
-			$project_id = absint( ccp_get_project_id( $_GET['project_id'] ) );
+			$project_id = absint( mc_get_project_id( $_GET['project_id'] ) );
 
 			// Verify the nonce.
-			check_admin_referer( "ccp_toggle_sticky_{$project_id}" );
+			check_admin_referer( "mc_toggle_sticky_{$project_id}" );
 
-			if ( ccp_is_project_sticky( $project_id ) )
-				ccp_remove_sticky_project( $project_id );
+			if ( mc_is_project_sticky( $project_id ) )
+				mc_remove_sticky_project( $project_id );
 			else
-				ccp_add_sticky_project( $project_id );
+				mc_add_sticky_project( $project_id );
 
 			// Redirect to correct admin page.
 			$redirect = add_query_arg( array( 'updated' => 1 ), remove_query_arg( array( 'action', 'project_id', '_wpnonce' ) ) );
@@ -343,7 +343,7 @@ final class CCP_Manage_Projects {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'overview',
-				'title'    => esc_html__( 'Overview', 'custom-content-portfolio' ),
+				'title'    => esc_html__( 'Overview', 'music-composition' ),
 				'callback' => array( $this, 'help_tab_overview' )
 			)
 		);
@@ -352,7 +352,7 @@ final class CCP_Manage_Projects {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'screen_content',
-				'title'    => esc_html__( 'Screen Content', 'custom-content-portfolio' ),
+				'title'    => esc_html__( 'Screen Content', 'music-composition' ),
 				'callback' => array( $this, 'help_tab_screen_content' )
 			)
 		);
@@ -361,13 +361,13 @@ final class CCP_Manage_Projects {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'available_actions',
-				'title'    => esc_html__( 'Available Actions', 'custom-content-portfolio' ),
+				'title'    => esc_html__( 'Available Actions', 'music-composition' ),
 				'callback' => array( $this, 'help_tab_available_actions' )
 			)
 		);
 
 		// Set the help sidebar.
-		$screen->set_help_sidebar( ccp_get_help_sidebar_text() );
+		$screen->set_help_sidebar( mc_get_help_sidebar_text() );
 	}
 
 	/**
@@ -380,7 +380,7 @@ final class CCP_Manage_Projects {
 	public function help_tab_overview() { ?>
 
 		<p>
-			<?php esc_html_e( 'This screen provides access to all of your portfolio projects. You can customize the display of this screen to suit your workflow.', 'custom-content-portfolio' ); ?>
+			<?php esc_html_e( 'This screen provides access to all of your portfolio projects. You can customize the display of this screen to suit your workflow.', 'music-composition' ); ?>
 		</p>
 	<?php }
 
@@ -394,14 +394,14 @@ final class CCP_Manage_Projects {
 	public function help_tab_screen_content() { ?>
 
 		<p>
-			<?php esc_html_e( "You can customize the display of this screen's contents in a number of ways:", 'custom-content-portfolio' ); ?>
+			<?php esc_html_e( "You can customize the display of this screen's contents in a number of ways:", 'music-composition' ); ?>
 		</p>
 
 		<ul>
-			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many projects to list per screen using the Screen Options tab.', 'custom-content-portfolio' ); ?></li>
-			<li><?php esc_html_e( 'You can filter the list of projects by post status using the text links in the upper left to show All, Published, Draft, or Trashed projects. The default view is to show all projects.', 'custom-content-portfolio' ); ?></li>
-			<li><?php esc_html_e( 'You can view projects in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'custom-content-portfolio' ); ?></li>
-			<li><?php esc_html_e( 'You can refine the list to show only projects in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the projects list. Click the Filter button after making your selection. You also can refine the list by clicking on the project author, category or tag in the posts list.', 'custom-content-portfolio' ); ?></li>
+			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many projects to list per screen using the Screen Options tab.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can filter the list of projects by post status using the text links in the upper left to show All, Published, Draft, or Trashed projects. The default view is to show all projects.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can view projects in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can refine the list to show only projects in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the projects list. Click the Filter button after making your selection. You also can refine the list by clicking on the project author, category or tag in the posts list.', 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -415,14 +415,14 @@ final class CCP_Manage_Projects {
 	public function help_tab_available_actions() { ?>
 
 		<p>
-			<?php esc_html_e( 'Hovering over a row in the projects list will display action links that allow you to manage your project. You can perform the following actions:', 'custom-content-portfolio' ); ?>
+			<?php esc_html_e( 'Hovering over a row in the projects list will display action links that allow you to manage your project. You can perform the following actions:', 'music-composition' ); ?>
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that project. You can also reach that screen by clicking on the project title.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Quick Edit</strong> provides inline access to the metadata of your project, allowing you to update project details without leaving this screen.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Trash</strong> removes your project from this list and places it in the trash, from which you can permanently delete it.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( "<strong>Preview</strong> will show you what your draft project will look like if you publish it. View will take you to your live site to view the project. Which link is available depends on your project's status.", 'custom-content-portfolio' ); ?></li>
+			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that project. You can also reach that screen by clicking on the project title.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Quick Edit</strong> provides inline access to the metadata of your project, allowing you to update project details without leaving this screen.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Trash</strong> removes your project from this list and places it in the trash, from which you can permanently delete it.', 'music-composition' ); ?></li>
+			<li><?php _e( "<strong>Preview</strong> will show you what your draft project will look like if you publish it. View will take you to your live site to view the project. Which link is available depends on your project's status.", 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -444,4 +444,4 @@ final class CCP_Manage_Projects {
 	}
 }
 
-CCP_Manage_Projects::get_instance();
+MC_Manage_Projects::get_instance();

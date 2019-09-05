@@ -2,16 +2,16 @@
 /**
  * Registers metadata and related functions for the plugin.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Includes
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Register meta on the 'init' hook.
-add_action( 'init', 'ccp_register_meta' );
+add_action( 'init', 'mc_register_meta' );
 
 /**
  * Registers custom metadata for the plugin.
@@ -20,7 +20,7 @@ add_action( 'init', 'ccp_register_meta' );
  * @access public
  * @return void
  */
-function ccp_register_meta() {
+function mc_register_meta() {
 
 	register_meta(
 		'post',
@@ -87,7 +87,7 @@ function ccp_register_meta() {
  * @param  string  $meta_key
  * @return mixed
  */
-function ccp_get_project_meta( $post_id, $meta_key ) {
+function mc_get_project_meta( $post_id, $meta_key ) {
 
 	return get_post_meta( $post_id, $meta_key, true );
 }
@@ -102,7 +102,7 @@ function ccp_get_project_meta( $post_id, $meta_key ) {
  * @param  mixed   $meta_value
  * @return bool
  */
-function ccp_set_project_meta( $post_id, $meta_key, $meta_value ) {
+function mc_set_project_meta( $post_id, $meta_key, $meta_value ) {
 
 	return update_post_meta( $post_id, $meta_key, $meta_value );
 }
@@ -116,7 +116,7 @@ function ccp_set_project_meta( $post_id, $meta_key, $meta_value ) {
  * @param  string  $meta_key
  * @return mixed
  */
-function ccp_delete_project_meta( $post_id, $meta_key ) {
+function mc_delete_project_meta( $post_id, $meta_key ) {
 
 	return delete_post_meta( $post_id, $meta_key );
 }

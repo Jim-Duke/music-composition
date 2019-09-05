@@ -2,11 +2,11 @@
 /**
  * General template tags for theme authors to use in their themes.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Includes
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -18,11 +18,11 @@
  * @param  mixed  $term
  * @return bool
  */
-function ccp_is_portfolio() {
+function mc_is_portfolio() {
 
-	$is_portfolio = ccp_is_archive() || ccp_is_single_project();
+	$is_portfolio = mc_is_archive() || mc_is_single_project();
 
-	return apply_filters( 'ccp_is_portfolio', $is_portfolio );
+	return apply_filters( 'mc_is_portfolio', $is_portfolio );
 }
 
 /**
@@ -32,11 +32,11 @@ function ccp_is_portfolio() {
  * @access public
  * @return bool
  */
-function ccp_is_archive() {
+function mc_is_archive() {
 
-	$is_archive = ccp_is_project_archive() || ccp_is_author() || ccp_is_category() || ccp_is_tag();
+	$is_archive = mc_is_project_archive() || mc_is_author() || mc_is_category() || mc_is_tag();
 
-	return apply_filters( 'ccp_is_archive', $is_archive );
+	return apply_filters( 'mc_is_archive', $is_archive );
 }
 
 /**
@@ -47,9 +47,9 @@ function ccp_is_archive() {
  * @param  mixed  $term
  * @return bool
  */
-function ccp_is_category( $term = '' ) {
+function mc_is_category( $term = '' ) {
 
-	return apply_filters( 'ccp_is_category', is_tax( ccp_get_category_taxonomy(), $term ) );
+	return apply_filters( 'mc_is_category', is_tax( mc_get_category_taxonomy(), $term ) );
 }
 
 /**
@@ -60,9 +60,9 @@ function ccp_is_category( $term = '' ) {
  * @param  mixed  $term
  * @return bool
  */
-function ccp_is_tag( $term = '' ) {
+function mc_is_tag( $term = '' ) {
 
-	return apply_filters( 'ccp_is_tag', is_tax( ccp_get_tag_taxonomy(), $term ) );
+	return apply_filters( 'mc_is_tag', is_tax( mc_get_tag_taxonomy(), $term ) );
 }
 
 /**
@@ -73,9 +73,9 @@ function ccp_is_tag( $term = '' ) {
  * @param  mixed  $author
  * @return bool
  */
-function ccp_is_author( $author = '' ) {
+function mc_is_author( $author = '' ) {
 
-	return apply_filters( 'ccp_is_author', is_post_type_archive( ccp_get_project_post_type() ) && is_author( $author ) );
+	return apply_filters( 'mc_is_author', is_post_type_archive( mc_get_project_post_type() ) && is_author( $author ) );
 }
 
 /**
@@ -85,8 +85,8 @@ function ccp_is_author( $author = '' ) {
  * @access public
  * @return void
  */
-function ccp_single_author_title() {
-	echo ccp_get_single_author_title();
+function mc_single_author_title() {
+	echo mc_get_single_author_title();
 }
 
 /**
@@ -96,9 +96,9 @@ function ccp_single_author_title() {
  * @access public
  * @return void
  */
-function ccp_get_single_author_title() {
+function mc_get_single_author_title() {
 
-	return apply_filters( 'ccp_get_single_author_title', get_the_author_meta( 'display_name', absint( get_query_var( 'author' ) ) ) );
+	return apply_filters( 'mc_get_single_author_title', get_the_author_meta( 'display_name', absint( get_query_var( 'author' ) ) ) );
 }
 
 /**
@@ -111,7 +111,7 @@ function ccp_get_single_author_title() {
  * @global object  $authordata
  * @return string
  */
-function ccp_get_author_url( $user_id = 0 ) {
+function mc_get_author_url( $user_id = 0 ) {
 	global $wp_rewrite, $authordata;
 
 	$url = '';
@@ -128,12 +128,12 @@ function ccp_get_author_url( $user_id = 0 ) {
 
 		// Pretty permalinks.
 		if ( $wp_rewrite->using_permalinks() )
-			$url = home_url( user_trailingslashit( trailingslashit( ccp_get_author_rewrite_slug() ) . $nicename ) );
+			$url = home_url( user_trailingslashit( trailingslashit( mc_get_author_rewrite_slug() ) . $nicename ) );
 
 		// Ugly permalinks.
 		else
-			$url = add_query_arg( array( 'post_type' => ccp_get_project_post_type(), 'author_name' => $nicename ), home_url( '/' ) );
+			$url = add_query_arg( array( 'post_type' => mc_get_project_post_type(), 'author_name' => $nicename ), home_url( '/' ) );
 	}
 
-	return apply_filters( 'ccp_get_author_url', $url, $user_id );
+	return apply_filters( 'mc_get_author_url', $url, $user_id );
 }

@@ -2,23 +2,23 @@
 /**
  * File for registering custom post types.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Includes
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Register custom post types on the 'init' hook.
-add_action( 'init', 'ccp_register_post_types' );
+add_action( 'init', 'mc_register_post_types' );
 
 # Filter the "enter title here" text.
-add_filter( 'enter_title_here', 'ccp_enter_title_here', 10, 2 );
+add_filter( 'enter_title_here', 'mc_enter_title_here', 10, 2 );
 
 # Filter the bulk and post updated messages.
-add_filter( 'bulk_post_updated_messages', 'ccp_bulk_post_updated_messages', 5, 2 );
-add_filter( 'post_updated_messages',      'ccp_post_updated_messages',      5    );
+add_filter( 'bulk_post_updated_messages', 'mc_bulk_post_updated_messages', 5, 2 );
+add_filter( 'post_updated_messages',      'mc_post_updated_messages',      5    );
 
 /**
  * Returns the name of the project post type.
@@ -27,9 +27,9 @@ add_filter( 'post_updated_messages',      'ccp_post_updated_messages',      5   
  * @access public
  * @return string
  */
-function ccp_get_project_post_type() {
+function mc_get_project_post_type() {
 
-	return apply_filters( 'ccp_get_project_post_type', 'portfolio_project' );
+	return apply_filters( 'mc_get_project_post_type', 'portfolio_project' );
 }
 
 /**
@@ -39,7 +39,7 @@ function ccp_get_project_post_type() {
  * @access public
  * @return array
  */
-function ccp_get_project_capabilities() {
+function mc_get_project_capabilities() {
 
 	$caps = array(
 
@@ -67,7 +67,7 @@ function ccp_get_project_capabilities() {
 		'edit_published_posts'   => 'edit_published_portfolio_projects'
 	);
 
-	return apply_filters( 'ccp_get_project_capabilities', $caps );
+	return apply_filters( 'mc_get_project_capabilities', $caps );
 }
 
 /**
@@ -77,38 +77,38 @@ function ccp_get_project_capabilities() {
  * @access public
  * @return array
  */
-function ccp_get_project_labels() {
+function mc_get_project_labels() {
 
 	$labels = array(
-		'name'                  => __( 'Projects',                   'custom-content-portfolio' ),
-		'singular_name'         => __( 'Project',                    'custom-content-portfolio' ),
-		'menu_name'             => __( 'Portfolio',                  'custom-content-portfolio' ),
-		'name_admin_bar'        => __( 'Project',                    'custom-content-portfolio' ),
-		'add_new'               => __( 'New Project',                'custom-content-portfolio' ),
-		'add_new_item'          => __( 'Add New Project',            'custom-content-portfolio' ),
-		'edit_item'             => __( 'Edit Project',               'custom-content-portfolio' ),
-		'new_item'              => __( 'New Project',                'custom-content-portfolio' ),
-		'view_item'             => __( 'View Project',               'custom-content-portfolio' ),
-		'view_items'            => __( 'View Projects',              'custom-content-portfolio' ),
-		'search_items'          => __( 'Search Projects',            'custom-content-portfolio' ),
-		'not_found'             => __( 'No projects found',          'custom-content-portfolio' ),
-		'not_found_in_trash'    => __( 'No projects found in trash', 'custom-content-portfolio' ),
-		'all_items'             => __( 'Projects',                   'custom-content-portfolio' ),
-		'featured_image'        => __( 'Project Image',              'custom-content-portfolio' ),
-		'set_featured_image'    => __( 'Set project image',          'custom-content-portfolio' ),
-		'remove_featured_image' => __( 'Remove project image',       'custom-content-portfolio' ),
-		'use_featured_image'    => __( 'Use as project image',       'custom-content-portfolio' ),
-		'insert_into_item'      => __( 'Insert into project',        'custom-content-portfolio' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this project',   'custom-content-portfolio' ),
-		'filter_items_list'     => __( 'Filter projects list',       'custom-content-portfolio' ),
-		'items_list_navigation' => __( 'Projects list navigation',   'custom-content-portfolio' ),
-		'items_list'            => __( 'Projects list',              'custom-content-portfolio' ),
+		'name'                  => __( 'Projects',                   'music-composition' ),
+		'singular_name'         => __( 'Project',                    'music-composition' ),
+		'menu_name'             => __( 'Portfolio',                  'music-composition' ),
+		'name_admin_bar'        => __( 'Project',                    'music-composition' ),
+		'add_new'               => __( 'New Project',                'music-composition' ),
+		'add_new_item'          => __( 'Add New Project',            'music-composition' ),
+		'edit_item'             => __( 'Edit Project',               'music-composition' ),
+		'new_item'              => __( 'New Project',                'music-composition' ),
+		'view_item'             => __( 'View Project',               'music-composition' ),
+		'view_items'            => __( 'View Projects',              'music-composition' ),
+		'search_items'          => __( 'Search Projects',            'music-composition' ),
+		'not_found'             => __( 'No projects found',          'music-composition' ),
+		'not_found_in_trash'    => __( 'No projects found in trash', 'music-composition' ),
+		'all_items'             => __( 'Projects',                   'music-composition' ),
+		'featured_image'        => __( 'Project Image',              'music-composition' ),
+		'set_featured_image'    => __( 'Set project image',          'music-composition' ),
+		'remove_featured_image' => __( 'Remove project image',       'music-composition' ),
+		'use_featured_image'    => __( 'Use as project image',       'music-composition' ),
+		'insert_into_item'      => __( 'Insert into project',        'music-composition' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this project',   'music-composition' ),
+		'filter_items_list'     => __( 'Filter projects list',       'music-composition' ),
+		'items_list_navigation' => __( 'Projects list navigation',   'music-composition' ),
+		'items_list'            => __( 'Projects list',              'music-composition' ),
 
 		// Custom labels b/c WordPress doesn't have anything to handle this.
-		'archive_title'         => ccp_get_portfolio_title(),
+		'archive_title'         => mc_get_portfolio_title(),
 	);
 
-	return apply_filters( 'ccp_get_project_labels', $labels );
+	return apply_filters( 'mc_get_project_labels', $labels );
 }
 
 /**
@@ -118,11 +118,11 @@ function ccp_get_project_labels() {
  * @access public
  * @return void
  */
-function ccp_register_post_types() {
+function mc_register_post_types() {
 
 	// Set up the arguments for the portfolio project post type.
 	$project_args = array(
-		'description'         => ccp_get_portfolio_description(),
+		'description'         => mc_get_portfolio_description(),
 		'public'              => true,
 		'publicly_queryable'  => true,
 		'show_in_nav_menus'   => true,
@@ -135,16 +135,16 @@ function ccp_register_post_types() {
 		'can_export'          => true,
 		'delete_with_user'    => false,
 		'hierarchical'        => false,
-		'has_archive'         => ccp_get_portfolio_rewrite_base(),
-		'query_var'           => ccp_get_project_post_type(),
+		'has_archive'         => mc_get_portfolio_rewrite_base(),
+		'query_var'           => mc_get_project_post_type(),
 		'capability_type'     => 'portfolio_project',
 		'map_meta_cap'        => true,
-		'capabilities'        => ccp_get_project_capabilities(),
-		'labels'              => ccp_get_project_labels(),
+		'capabilities'        => mc_get_project_capabilities(),
+		'labels'              => mc_get_project_labels(),
 
 		// The rewrite handles the URL structure.
 		'rewrite' => array(
-			'slug'       => ccp_get_project_rewrite_slug(),
+			'slug'       => mc_get_project_rewrite_slug(),
 			'with_front' => false,
 			'pages'      => true,
 			'feeds'      => true,
@@ -167,7 +167,7 @@ function ccp_register_post_types() {
 	);
 
 	// Register the post types.
-	register_post_type( ccp_get_project_post_type(), apply_filters( 'ccp_project_post_type_args', $project_args ) );
+	register_post_type( mc_get_project_post_type(), apply_filters( 'mc_project_post_type_args', $project_args ) );
 }
 
 /**
@@ -179,9 +179,9 @@ function ccp_register_post_types() {
  * @param  object  $post
  * @return string
  */
-function ccp_enter_title_here( $title, $post ) {
+function mc_enter_title_here( $title, $post ) {
 
-	return ccp_get_project_post_type() === $post->post_type ? esc_html__( 'Enter project title', 'custom-content-portfolio' ) : $title;
+	return mc_get_project_post_type() === $post->post_type ? esc_html__( 'Enter project title', 'music-composition' ) : $title;
 }
 
 /**
@@ -194,10 +194,10 @@ function ccp_enter_title_here( $title, $post ) {
  * @global int    $post_ID
  * @return array
  */
-function ccp_post_updated_messages( $messages ) {
+function mc_post_updated_messages( $messages ) {
 	global $post, $post_ID;
 
-	$project_type = ccp_get_project_post_type();
+	$project_type = mc_get_project_post_type();
 
 	if ( $project_type !== $post->post_type )
 		return $messages;
@@ -207,24 +207,24 @@ function ccp_post_updated_messages( $messages ) {
 	$preview_url = get_preview_post_link( $post );
 
 	// Translators: Scheduled project date format. See http://php.net/date
-	$scheduled_date = date_i18n( __( 'M j, Y @ H:i', 'custom-content-portfolio' ), strtotime( $post->post_date ) );
+	$scheduled_date = date_i18n( __( 'M j, Y @ H:i', 'music-composition' ), strtotime( $post->post_date ) );
 
 	// Set up view links.
-	$preview_link   = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $preview_url ), esc_html__( 'Preview project', 'custom-content-portfolio' ) );
-	$scheduled_link = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $permalink ),   esc_html__( 'Preview project', 'custom-content-portfolio' ) );
-	$view_link      = sprintf( ' <a href="%1$s">%2$s</a>',                 esc_url( $permalink ),   esc_html__( 'View project',    'custom-content-portfolio' ) );
+	$preview_link   = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $preview_url ), esc_html__( 'Preview project', 'music-composition' ) );
+	$scheduled_link = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>', esc_url( $permalink ),   esc_html__( 'Preview project', 'music-composition' ) );
+	$view_link      = sprintf( ' <a href="%1$s">%2$s</a>',                 esc_url( $permalink ),   esc_html__( 'View project',    'music-composition' ) );
 
 	// Post updated messages.
 	$messages[ $project_type ] = array(
-		 1 => esc_html__( 'Project updated.', 'custom-content-portfolio' ) . $view_link,
-		 4 => esc_html__( 'Project updated.', 'custom-content-portfolio' ),
+		 1 => esc_html__( 'Project updated.', 'music-composition' ) . $view_link,
+		 4 => esc_html__( 'Project updated.', 'music-composition' ),
 		 // Translators: %s is the date and time of the revision.
-		 5 => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Project restored to revision from %s.', 'custom-content-portfolio' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		 6 => esc_html__( 'Project published.', 'custom-content-portfolio' ) . $view_link,
-		 7 => esc_html__( 'Project saved.', 'custom-content-portfolio' ),
-		 8 => esc_html__( 'Project submitted.', 'custom-content-portfolio' ) . $preview_link,
-		 9 => sprintf( esc_html__( 'Project scheduled for: %s.', 'custom-content-portfolio' ), "<strong>{$scheduled_date}</strong>" ) . $scheduled_link,
-		10 => esc_html__( 'Project draft updated.', 'custom-content-portfolio' ) . $preview_link,
+		 5 => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Project restored to revision from %s.', 'music-composition' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		 6 => esc_html__( 'Project published.', 'music-composition' ) . $view_link,
+		 7 => esc_html__( 'Project saved.', 'music-composition' ),
+		 8 => esc_html__( 'Project submitted.', 'music-composition' ) . $preview_link,
+		 9 => sprintf( esc_html__( 'Project scheduled for: %s.', 'music-composition' ), "<strong>{$scheduled_date}</strong>" ) . $scheduled_link,
+		10 => esc_html__( 'Project draft updated.', 'music-composition' ) . $preview_link,
 	);
 
 	return $messages;
@@ -239,15 +239,15 @@ function ccp_post_updated_messages( $messages ) {
  * @param  array  $counts
  * @return array
  */
-function ccp_bulk_post_updated_messages( $messages, $counts ) {
+function mc_bulk_post_updated_messages( $messages, $counts ) {
 
-	$type = ccp_get_project_post_type();
+	$type = mc_get_project_post_type();
 
-	$messages[ $type ]['updated']   = _n( '%s project updated.',                             '%s projects updated.',                               $counts['updated'],   'custom-content-portfolio' );
-	$messages[ $type ]['locked']    = _n( '%s project not updated, somebody is editing it.', '%s projects not updated, somebody is editing them.', $counts['locked'],    'custom-content-portfolio' );
-	$messages[ $type ]['deleted']   = _n( '%s project permanently deleted.',                 '%s projects permanently deleted.',                   $counts['deleted'],   'custom-content-portfolio' );
-	$messages[ $type ]['trashed']   = _n( '%s project moved to the Trash.',                  '%s projects moved to the trash.',                    $counts['trashed'],   'custom-content-portfolio' );
-	$messages[ $type ]['untrashed'] = _n( '%s project restored from the Trash.',             '%s projects restored from the trash.',               $counts['untrashed'], 'custom-content-portfolio' );
+	$messages[ $type ]['updated']   = _n( '%s project updated.',                             '%s projects updated.',                               $counts['updated'],   'music-composition' );
+	$messages[ $type ]['locked']    = _n( '%s project not updated, somebody is editing it.', '%s projects not updated, somebody is editing them.', $counts['locked'],    'music-composition' );
+	$messages[ $type ]['deleted']   = _n( '%s project permanently deleted.',                 '%s projects permanently deleted.',                   $counts['deleted'],   'music-composition' );
+	$messages[ $type ]['trashed']   = _n( '%s project moved to the Trash.',                  '%s projects moved to the trash.',                    $counts['trashed'],   'music-composition' );
+	$messages[ $type ]['untrashed'] = _n( '%s project restored from the Trash.',             '%s projects restored from the trash.',               $counts['untrashed'], 'music-composition' );
 
 	return $messages;
 }

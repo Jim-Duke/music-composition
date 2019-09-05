@@ -2,57 +2,57 @@
 /**
  * Various functions, filters, and actions used by the plugin.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Includes
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 # Check theme support.
-add_action( 'wp_loaded', 'ccp_check_theme_support', 0 );
+add_action( 'wp_loaded', 'mc_check_theme_support', 0 );
 
 # Template hierarchy.
-add_filter( 'template_include', 'ccp_template_include', 5 );
+add_filter( 'template_include', 'mc_template_include', 5 );
 
 # Add sticky posts to the front of the line.
-add_filter( 'the_posts', 'ccp_posts_sticky_filter', 10, 2 );
+add_filter( 'the_posts', 'mc_posts_sticky_filter', 10, 2 );
 
 # Filter the document title.
-add_filter( 'document_title_parts', 'ccp_document_title_parts', 5 );
+add_filter( 'document_title_parts', 'mc_document_title_parts', 5 );
 
 # Filter the post type archive title.
-add_filter( 'post_type_archive_title', 'ccp_post_type_archive_title', 5, 2 );
+add_filter( 'post_type_archive_title', 'mc_post_type_archive_title', 5, 2 );
 
 # Filter the archive title and description.
-add_filter( 'get_the_archive_title',       'ccp_get_the_archive_title',       5 );
-add_filter( 'get_the_archive_description', 'ccp_get_the_archive_description', 5 );
+add_filter( 'get_the_archive_title',       'mc_get_the_archive_title',       5 );
+add_filter( 'get_the_archive_description', 'mc_get_the_archive_description', 5 );
 
 # Filter the post type permalink.
-add_filter( 'post_type_link', 'ccp_post_type_link', 10, 2 );
+add_filter( 'post_type_link', 'mc_post_type_link', 10, 2 );
 
 # Filter the post author link.
-add_filter( 'author_link', 'ccp_author_link_filter', 10, 3 );
+add_filter( 'author_link', 'mc_author_link_filter', 10, 3 );
 
 # Force taxonomy term selection.
-add_action( 'save_post', 'ccp_force_term_selection' );
+add_action( 'save_post', 'mc_force_term_selection' );
 
 # Filter the Breadcrumb Trail plugin args.
-add_filter( 'breadcrumb_trail_args', 'ccp_breadcrumb_trail_args', 15 );
+add_filter( 'breadcrumb_trail_args', 'mc_breadcrumb_trail_args', 15 );
 
 /**
- * Checks if the theme supports `custom-content-portfolio`.  If not, it runs specific filters
+ * Checks if the theme supports `music-composition`.  If not, it runs specific filters
  * to make themes without support work a little better.
  *
  * @since  1.0.0
  * @access public
  * @return void
  */
-function ccp_check_theme_support() {
+function mc_check_theme_support() {
 
-	if ( ! current_theme_supports( 'custom-content-portfolio' ) )
-		add_filter( 'the_content', 'ccp_the_content_filter', 25 );
+	if ( ! current_theme_supports( 'music-composition' ) )
+		add_filter( 'the_content', 'mc_the_content_filter', 25 );
 }
 
 /**
@@ -64,35 +64,35 @@ function ccp_check_theme_support() {
  * @param  string  $template
  * @return string
  */
-function ccp_template_include( $template ) {
+function mc_template_include( $template ) {
 
 	// Bail if not a portfolio page.
-	if ( ! ccp_is_portfolio() )
+	if ( ! mc_is_portfolio() )
 		return $template;
 
 	$templates = array();
 
 	// Author archive.
-	if ( ccp_is_author() ) {
+	if ( mc_is_author() ) {
 		$templates[] = 'portfolio-author.php';
 		$templates[] = 'portfolio-archive.php';
 
 	// Category archive.
-	} else if ( ccp_is_category() ) {
+	} else if ( mc_is_category() ) {
 		$templates[] = 'portfolio-category.php';
 		$templates[] = 'portfolio-archive.php';
 
 	// Tag archive.
-	} else if ( ccp_is_tag() ) {
+	} else if ( mc_is_tag() ) {
 		$templates[] = 'portfolio-tag.php';
 		$templates[] = 'portfolio-archive.php';
 
 	// Project archive.
-	} else if ( ccp_is_project_archive() ) {
+	} else if ( mc_is_project_archive() ) {
 		$templates[] = 'portfolio-archive.php';
 
 	// Single project.
-	} else if ( ccp_is_single_project() ) {
+	} else if ( mc_is_single_project() ) {
 		$templates[] = 'portfolio-project.php';
 	}
 
@@ -100,7 +100,7 @@ function ccp_template_include( $template ) {
 	$templates[] = 'portfolio.php';
 
 	// Check if we have a template.
-	$has_template = locate_template( apply_filters( 'ccp_template_hierarchy', $templates ) );
+	$has_template = locate_template( apply_filters( 'mc_template_hierarchy', $templates ) );
 
 	// Return the template.
 	return $has_template ? $has_template : $template;
@@ -115,17 +115,17 @@ function ccp_template_include( $template ) {
  * @param  string  $content
  * @return string
  */
-function ccp_the_content_filter( $content ) {
+function mc_the_content_filter( $content ) {
 
-	if ( in_the_loop() && ccp_is_single_project() && ccp_is_project() && ! post_password_required() ) {
+	if ( in_the_loop() && mc_is_single_project() && mc_is_project() && ! post_password_required() ) {
 
 		$project_meta = '';
 
-		$project_meta .= ccp_get_project_link(       array( 'text' => esc_html__( 'Visit Project', 'custom-content-portfolio' ), 'after' => '<br />' ) );
-		$project_meta .= ccp_get_project_client(     array( 'text' => esc_html__( 'Client: %s',    'custom-content-portfolio' ), 'after' => '<br />' ) );
-		$project_meta .= ccp_get_project_location(   array( 'text' => esc_html__( 'Location: %s',  'custom-content-portfolio' ), 'after' => '<br />' ) );
-		$project_meta .= ccp_get_project_start_date( array( 'text' => esc_html__( 'Started: %s',   'custom-content-portfolio' ), 'after' => '<br />' ) );
-		$project_meta .= ccp_get_project_end_date(   array( 'text' => esc_html__( 'Completed: %s', 'custom-content-portfolio' ) ) );
+		$project_meta .= mc_get_project_link(       array( 'text' => esc_html__( 'Visit Project', 'music-composition' ), 'after' => '<br />' ) );
+		$project_meta .= mc_get_project_client(     array( 'text' => esc_html__( 'Client: %s',    'music-composition' ), 'after' => '<br />' ) );
+		$project_meta .= mc_get_project_location(   array( 'text' => esc_html__( 'Location: %s',  'music-composition' ), 'after' => '<br />' ) );
+		$project_meta .= mc_get_project_start_date( array( 'text' => esc_html__( 'Started: %s',   'music-composition' ), 'after' => '<br />' ) );
+		$project_meta .= mc_get_project_end_date(   array( 'text' => esc_html__( 'Completed: %s', 'music-composition' ) ) );
 
 		if ( $project_meta )
 			$content .= sprintf( '<p class="project-meta">%s</p>', $project_meta );
@@ -144,17 +144,17 @@ function ccp_the_content_filter( $content ) {
  * @param  object $query
  * @return array
  */
-function ccp_posts_sticky_filter( $posts, $query ) {
+function mc_posts_sticky_filter( $posts, $query ) {
 
 	// Allow devs to filter when to show sticky projects.
-	$show_stickies = apply_filters( 'ccp_show_stickies', $query->is_main_query() && ! is_admin() && ccp_is_project_archive() && ! is_paged() );
+	$show_stickies = apply_filters( 'mc_show_stickies', $query->is_main_query() && ! is_admin() && mc_is_project_archive() && ! is_paged() );
 
 	// If we should show stickies, let's get them.
 	if ( $show_stickies ) {
 
-		remove_filter( 'the_posts', 'ccp_posts_sticky_filter' );
+		remove_filter( 'the_posts', 'mc_posts_sticky_filter' );
 
-		$posts = ccp_add_stickies( $posts, ccp_get_sticky_projects() );
+		$posts = mc_add_stickies( $posts, mc_get_sticky_projects() );
 	}
 
 	return $posts;
@@ -169,7 +169,7 @@ function ccp_posts_sticky_filter( $posts, $query ) {
  * @param  array  $sticky_posts  Array of post IDs.
  * @return array
  */
-function ccp_add_stickies( $posts, $sticky_posts ) {
+function mc_add_stickies( $posts, $sticky_posts ) {
 
 	// Only do this if on the first page and we indeed have stickies.
 	if ( ! empty( $sticky_posts ) ) {
@@ -205,7 +205,7 @@ function ccp_add_stickies( $posts, $sticky_posts ) {
 
 			$args = array(
 					'post__in'    => $sticky_posts,
-					'post_type'   => ccp_get_project_post_type(),
+					'post_type'   => mc_get_project_post_type(),
 					'post_status' => 'publish',
 					'nopaging'    => true
 			);
@@ -230,10 +230,10 @@ function ccp_add_stickies( $posts, $sticky_posts ) {
  * @param  array  $title
  * @return array
  */
-function ccp_document_title_parts( $title ) {
+function mc_document_title_parts( $title ) {
 
-	if ( ccp_is_author() )
-		$title['title'] = ccp_get_single_author_title();
+	if ( mc_is_author() )
+		$title['title'] = mc_get_single_author_title();
 
 	return $title;
 }
@@ -248,11 +248,11 @@ function ccp_document_title_parts( $title ) {
  * @param  string  $post_type
  * @return string
  */
-function ccp_post_type_archive_title( $title, $post_type ) {
+function mc_post_type_archive_title( $title, $post_type ) {
 
-	$project_type = ccp_get_project_post_type();
+	$project_type = mc_get_project_post_type();
 
-	return $project_type === $post_type ? get_post_type_object( ccp_get_project_post_type() )->labels->archive_title : $title;
+	return $project_type === $post_type ? get_post_type_object( mc_get_project_post_type() )->labels->archive_title : $title;
 }
 
 /**
@@ -264,12 +264,12 @@ function ccp_post_type_archive_title( $title, $post_type ) {
  * @param  string  $title
  * @return string
  */
-function ccp_get_the_archive_title( $title ) {
+function mc_get_the_archive_title( $title ) {
 
-	if ( ccp_is_author() )
-		$title = ccp_get_single_author_title();
+	if ( mc_is_author() )
+		$title = mc_get_single_author_title();
 
-	else if ( ccp_is_project_archive() )
+	else if ( mc_is_project_archive() )
 		$title = post_type_archive_title( '', false );
 
 	return $title;
@@ -283,13 +283,13 @@ function ccp_get_the_archive_title( $title ) {
  * @param  string  $desc
  * @return string
  */
-function ccp_get_the_archive_description( $desc ) {
+function mc_get_the_archive_description( $desc ) {
 
-	if ( ccp_is_author() )
+	if ( mc_is_author() )
 		$desc = get_the_author_meta( 'description', get_query_var( 'author' ) );
 
-	else if ( ccp_is_project_archive() && ! $desc )
-		$desc = ccp_get_portfolio_description();
+	else if ( mc_is_project_archive() && ! $desc )
+		$desc = mc_get_portfolio_description();
 
 	return $desc;
 }
@@ -304,14 +304,14 @@ function ccp_get_the_archive_description( $desc ) {
  * @param  object  $post
  * @return string
  */
-function ccp_post_type_link( $post_link, $post ) {
+function mc_post_type_link( $post_link, $post ) {
 
 	// Bail if this isn't a portfolio project.
-	if ( ccp_get_project_post_type() !== $post->post_type )
+	if ( mc_get_project_post_type() !== $post->post_type )
 		return $post_link;
 
-	$cat_taxonomy = ccp_get_category_taxonomy();
-	$tag_taxonomy = ccp_get_tag_taxonomy();
+	$cat_taxonomy = mc_get_category_taxonomy();
+	$tag_taxonomy = mc_get_tag_taxonomy();
 
 	$author = $category = $tag = '';
 
@@ -378,9 +378,9 @@ function ccp_post_type_link( $post_link, $post ) {
  * @param  string  $nicename
  * @return string
  */
-function ccp_author_link_filter( $url, $author_id, $nicename ) {
+function mc_author_link_filter( $url, $author_id, $nicename ) {
 
-	return ccp_is_project() ? ccp_get_author_url( $author_id ) : $url;
+	return mc_is_project() ? mc_get_author_url( $author_id ) : $url;
 }
 
 /**
@@ -394,19 +394,19 @@ function ccp_author_link_filter( $url, $author_id, $nicename ) {
  * @param  int    $post_id
  * @return void
  */
-function ccp_force_term_selection( $post_id ) {
+function mc_force_term_selection( $post_id ) {
 
-	if ( ccp_is_project( $post_id ) ) {
+	if ( mc_is_project( $post_id ) ) {
 
-		$project_base = ccp_get_project_rewrite_base();
-		$cat_tax      = ccp_get_category_taxonomy();
-		$tag_tax      = ccp_get_tag_taxonomy();
+		$project_base = mc_get_project_rewrite_base();
+		$cat_tax      = mc_get_category_taxonomy();
+		$tag_tax      = mc_get_tag_taxonomy();
 
 		if ( false !== strpos( $project_base, "%{$cat_tax}%" ) )
-			ccp_set_term_if_none( $post_id, $cat_tax, ccp_get_default_category() );
+			mc_set_term_if_none( $post_id, $cat_tax, mc_get_default_category() );
 
 		if ( false !== strpos( $project_base, "%{$tag_tax}%" ) )
-			ccp_set_term_if_none( $post_id, $tag_tax, ccp_get_default_tag() );
+			mc_set_term_if_none( $post_id, $tag_tax, mc_get_default_tag() );
 	}
 }
 
@@ -421,7 +421,7 @@ function ccp_force_term_selection( $post_id ) {
  * @param  int     $default
  * @return void
  */
-function ccp_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
+function mc_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
 
 	// Get the current post terms.
 	$terms = wp_get_post_terms( $post_id, $taxonomy );
@@ -465,13 +465,13 @@ function ccp_set_term_if_none( $post_id, $taxonomy, $default = 0 ) {
  * @param  array  $args
  * @return array
  */
-function ccp_breadcrumb_trail_args( $args ) {
+function mc_breadcrumb_trail_args( $args ) {
 
-	$project_type = ccp_get_project_post_type();
-	$project_base = ccp_get_project_rewrite_base();
+	$project_type = mc_get_project_post_type();
+	$project_base = mc_get_project_rewrite_base();
 
 	if ( false === strpos( $project_base, '%' ) && ! isset( $args['post_taxonomy'][ $project_type ] ) )
-		$args['post_taxonomy'][ $project_type ] = ccp_get_category_taxonomy();
+		$args['post_taxonomy'][ $project_type ] = mc_get_category_taxonomy();
 
 	return $args;
 }

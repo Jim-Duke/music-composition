@@ -2,11 +2,11 @@
 /**
  * Plugin functions related to the project post type.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Includes
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -18,11 +18,11 @@
  * @param  int    $project_id
  * @return bool
  */
-function ccp_add_sticky_project( $project_id ) {
-	$project_id = ccp_get_project_id( $project_id );
+function mc_add_sticky_project( $project_id ) {
+	$project_id = mc_get_project_id( $project_id );
 
-	if ( ! ccp_is_project_sticky( $project_id ) )
-		return update_option( 'ccp_sticky_projects', array_unique( array_merge( ccp_get_sticky_projects(), array( $project_id ) ) ) );
+	if ( ! mc_is_project_sticky( $project_id ) )
+		return update_option( 'mc_sticky_projects', array_unique( array_merge( mc_get_sticky_projects(), array( $project_id ) ) ) );
 
 	return false;
 }
@@ -35,16 +35,16 @@ function ccp_add_sticky_project( $project_id ) {
  * @param  int    $project_id
  * @return bool
  */
-function ccp_remove_sticky_project( $project_id ) {
-	$project_id = ccp_get_project_id( $project_id );
+function mc_remove_sticky_project( $project_id ) {
+	$project_id = mc_get_project_id( $project_id );
 
-	if ( ccp_is_project_sticky( $project_id ) ) {
-		$stickies = ccp_get_sticky_projects();
+	if ( mc_is_project_sticky( $project_id ) ) {
+		$stickies = mc_get_sticky_projects();
 		$key      = array_search( $project_id, $stickies );
 
 		if ( isset( $stickies[ $key ] ) ) {
 			unset( $stickies[ $key ] );
-			return update_option( 'ccp_sticky_projects', array_unique( $stickies ) );
+			return update_option( 'mc_sticky_projects', array_unique( $stickies ) );
 		}
 	}
 
@@ -58,6 +58,6 @@ function ccp_remove_sticky_project( $project_id ) {
  * @access public
  * @return array
  */
-function ccp_get_sticky_projects() {
-	return apply_filters( 'ccp_get_sticky_projects', get_option( 'ccp_sticky_projects', array() ) );
+function mc_get_sticky_projects() {
+	return apply_filters( 'mc_get_sticky_projects', get_option( 'mc_sticky_projects', array() ) );
 }

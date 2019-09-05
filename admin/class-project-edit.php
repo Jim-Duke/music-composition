@@ -2,11 +2,11 @@
 /**
  * New/Edit project admin screen.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Admin
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -16,7 +16,7 @@
  * @since  1.0.0
  * @access public
  */
-final class CCP_Project_Edit {
+final class MC_Project_Edit {
 
 	/**
 	 * Sets up the needed actions.
@@ -31,7 +31,7 @@ final class CCP_Project_Edit {
 		add_action( 'load-post-new.php', array( $this, 'load' ) );
 
 		// Add the help tabs.
-		add_action( 'ccp_load_project_edit', array( $this, 'add_help_tabs' ) );
+		add_action( 'mc_load_project_edit', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
@@ -45,14 +45,14 @@ final class CCP_Project_Edit {
 	public function load() {
 
 		$screen       = get_current_screen();
-		$project_type = ccp_get_project_post_type();
+		$project_type = mc_get_project_post_type();
 
 		// Bail if not on the projects screen.
 		if ( empty( $screen->post_type ) || $project_type !== $screen->post_type )
 			return;
 
 		// Custom action for loading the edit project screen.
-		do_action( 'ccp_load_project_edit' );
+		do_action( 'mc_load_project_edit' );
 
 		// Enqueue scripts and styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -82,13 +82,13 @@ final class CCP_Project_Edit {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'ccp-edit-project' );
+		wp_enqueue_script( 'mc-edit-project' );
 	}
 
 	/**
 	 * Print styles.
 	 *
-	 * @since  2.0.0
+	 * @since  1.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -137,32 +137,32 @@ final class CCP_Project_Edit {
 		}
 
 		// Get the post type object.
-		$post_type_object = get_post_type_object( ccp_get_project_post_type() );
+		$post_type_object = get_post_type_object( mc_get_project_post_type() );
 
 		// Is the project sticky?
-		$is_sticky = ccp_is_project_sticky( $post->ID );
+		$is_sticky = mc_is_project_sticky( $post->ID );
 
 		// Set the label based on whether the project is sticky.
-		$label = $is_sticky ? esc_html__( 'Sticky', 'custom-content-portfolio' ) : esc_html__( 'Not Sticky', 'custom-content-portfolio' ); ?>
+		$label = $is_sticky ? esc_html__( 'Sticky', 'music-composition' ) : esc_html__( 'Not Sticky', 'music-composition' ); ?>
 
 		<div class="misc-pub-section curtime misc-pub-project-sticky">
 
-			<?php wp_nonce_field( 'ccp_project_publish_box_nonce', 'ccp_project_publish_box' ); ?>
+			<?php wp_nonce_field( 'mc_project_publish_box_nonce', 'mc_project_publish_box' ); ?>
 
 			<i class="dashicons dashicons-sticky"></i>
-			<?php printf( esc_html__( 'Sticky: %s', 'custom-content-portfolio' ), "<strong class='ccp-sticky-status'>{$label}</strong>" ); ?>
+			<?php printf( esc_html__( 'Sticky: %s', 'music-composition' ), "<strong class='mc-sticky-status'>{$label}</strong>" ); ?>
 
 			<?php if ( current_user_can( $post_type_object->cap->publish_posts ) ) : ?>
 
-				<a href="#ccp-sticky-edit" class="ccp-edit-sticky"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'custom-content-portfolio' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit sticky status', 'custom-content-portfolio' ); ?></span></a>
+				<a href="#mc-sticky-edit" class="mc-edit-sticky"><span aria-hidden="true"><?php esc_html_e( 'Edit', 'music-composition' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit sticky status', 'music-composition' ); ?></span></a>
 
-				<div id="ccp-sticky-edit" class="hide-if-js">
+				<div id="mc-sticky-edit" class="hide-if-js">
 					<label>
-						<input type="checkbox" name="ccp_project_sticky" id="ccp-project-sticky" <?php checked( $is_sticky ); ?> value="true" />
-						<?php esc_html_e( 'Stick to the portfolio page', 'custom-content-portfolio' ); ?>
+						<input type="checkbox" name="mc_project_sticky" id="mc-project-sticky" <?php checked( $is_sticky ); ?> value="true" />
+						<?php esc_html_e( 'Stick to the portfolio page', 'music-composition' ); ?>
 					</label>
-					<a href="#ccp-project-sticky" class="ccp-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'custom-content-portolio' ); ?></a>
-					<a href="#ccp-project-sticky" class="ccp-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'custom-content-portolio' ); ?></a>
+					<a href="#mc-project-sticky" class="mc-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'music-composition' ); ?></a>
+					<a href="#mc-project-sticky" class="mc-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'music-composition' ); ?></a>
 				</div><!-- #ccp-sticky-edit -->
 
 			<?php endif; ?>
@@ -171,7 +171,7 @@ final class CCP_Project_Edit {
 	<?php }
 
 	/**
-	 * Output the project details box.
+	 * Output the project details box.  TBD - decide whether we need to keep this.
 	 *
 	 * @since      1.0.0
 	 * @deprecated 2.0.0
@@ -192,19 +192,19 @@ final class CCP_Project_Edit {
 	public function update( $post_id ) {
 
 		// Verify the nonce.
-		if ( ! isset( $_POST['ccp_project_publish_box'] ) || ! wp_verify_nonce( $_POST['ccp_project_publish_box'], 'ccp_project_publish_box_nonce' ) )
+		if ( ! isset( $_POST['mc_project_publish_box'] ) || ! wp_verify_nonce( $_POST['mc_project_publish_box'], 'mc_project_publish_box_nonce' ) )
 			return;
 
 		// Is the sticky checkbox checked?
-		$should_stick = ! empty( $_POST['ccp_project_sticky'] );
+		$should_stick = ! empty( $_POST['mc_project_sticky'] );
 
 		// If checked, add the project if it is not sticky.
-		if ( $should_stick && ! ccp_is_project_sticky( $post_id ) )
-			ccp_add_sticky_project( $post_id );
+		if ( $should_stick && ! mc_is_project_sticky( $post_id ) )
+			mc_add_sticky_project( $post_id );
 
 		// If not checked, remove the project if it is sticky.
-		elseif ( ! $should_stick && ccp_is_project_sticky( $post_id ) )
-			ccp_remove_sticky_project( $post_id );
+		elseif ( ! $should_stick && mc_is_project_sticky( $post_id ) )
+			mc_remove_sticky_project( $post_id );
 	}
 
 	/**
@@ -223,7 +223,7 @@ final class CCP_Project_Edit {
 		global $wp_roles, $post;
 
 		// Check that this is the correct drop-down.
-		if ( 'post_author_override' === $r['name'] && ccp_get_project_post_type() === $post->post_type ) {
+		if ( 'post_author_override' === $r['name'] && mc_get_project_post_type() === $post->post_type ) {
 
 			$roles = array();
 
@@ -231,7 +231,7 @@ final class CCP_Project_Edit {
 			foreach ( $wp_roles->roles as $name => $role ) {
 
 				// Get the edit posts cap.
-				$cap = get_post_type_object( ccp_get_project_post_type() )->cap->edit_posts;
+				$cap = get_post_type_object( mc_get_project_post_type() )->cap->edit_posts;
 
 				// If the role is granted the edit posts cap, add it.
 				if ( isset( $role['capabilities'][ $cap ] ) && true === $role['capabilities'][ $cap ] )
@@ -263,7 +263,7 @@ final class CCP_Project_Edit {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'title_editor',
-				'title'    => esc_html__( 'Title and Editor', 'custom-content-portfolio' ),
+				'title'    => esc_html__( 'Title and Editor', 'music-composition' ),
 				'callback' => array( $this, 'help_tab_title_editor' )
 			)
 		);
@@ -272,13 +272,13 @@ final class CCP_Project_Edit {
 		$screen->add_help_tab(
 			array(
 				'id'       => 'project_details',
-				'title'    => esc_html__( 'Project Details', 'custom-content-portfolio' ),
+				'title'    => esc_html__( 'Project Details', 'music-composition' ),
 				'callback' => array( $this, 'help_tab_project_details' )
 			)
 		);
 
 		// Set the help sidebar.
-		$screen->set_help_sidebar( ccp_get_help_sidebar_text() );
+		$screen->set_help_sidebar( mc_get_help_sidebar_text() );
 	}
 
 	/**
@@ -291,8 +291,8 @@ final class CCP_Project_Edit {
 	public function help_tab_title_editor() { ?>
 
 		<ul>
-			<li><?php _e( "<strong>Title:</strong> Enter a title for your project. After you enter a title, you'll see the permalink below, which you can edit.", 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your project. You can insert text, media, or shortcodes.', 'custom-content-portfolio' ); ?></li>
+			<li><?php _e( "<strong>Title:</strong> Enter a title for your project. After you enter a title, you'll see the permalink below, which you can edit.", 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your project. You can insert text, media, or shortcodes.', 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -306,16 +306,16 @@ final class CCP_Project_Edit {
 	public function help_tab_project_details() { ?>
 
 		<p>
-			<?php esc_html_e( 'The Project Details meta box allows you to customize the details of your project. All fields are optional.', 'custom-content-portfolio' ); ?>
+			<?php esc_html_e( 'The Project Details meta box allows you to customize the details of your project. All fields are optional.', 'music-composition' ); ?>
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the project, such as a client Web site.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Client:</strong> The name of the client the project was built for.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Location:</strong> A physical location where the project took place (e.g., Highland Home, AL, USA).', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Start Date:</strong> The date the project began.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>End Date:</strong> The date the project was completed.', 'custom-content-portfolio' ); ?></li>
-			<li><?php _e( '<strong>Description:</strong> A short summary of the project. Some themes may show this on archive pages.', 'custom-content-portfolio' ); ?></li>
+			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the project, such as a client Web site.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Client:</strong> The name of the client the project was built for.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Location:</strong> A physical location where the project took place (e.g., Highland Home, AL, USA).', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Start Date:</strong> The date the project began.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>End Date:</strong> The date the project was completed.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Description:</strong> A short summary of the project. Some themes may show this on archive pages.', 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -337,4 +337,4 @@ final class CCP_Project_Edit {
 	}
 }
 
-CCP_Project_Edit::get_instance();
+MC_Project_Edit::get_instance();

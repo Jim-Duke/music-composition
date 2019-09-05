@@ -2,11 +2,11 @@
 /**
  * Plugin options functions.
  *
- * @package    CustomContentPortfolio
+ * @package    MusicComposition
  * @subpackage Includes
- * @author     Justin Tadlock <justintadlock@gmail.com>
- * @copyright  Copyright (c) 2013-2017, Justin Tadlock
- * @link       https://themehybrid.com/plugins/custom-content-portfolio
+ * @author     Jim Duke <jim@dukeboys.org>
+ * @copyright  Copyright (c) 2019, Jim Duke
+ * @link       https://jim.dukeboys.org/plugins/music-composition
  * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
@@ -17,8 +17,8 @@
  * @access public
  * @return string
  */
-function ccp_get_portfolio_title() {
-	return apply_filters( 'ccp_get_portfolio_title', ccp_get_setting( 'portfolio_title' ) );
+function mc_get_portfolio_title() {
+	return apply_filters( 'mc_get_portfolio_title', mc_get_setting( 'portfolio_title' ) );
 }
 
 /**
@@ -28,8 +28,8 @@ function ccp_get_portfolio_title() {
  * @access public
  * @return string
  */
-function ccp_get_portfolio_description() {
-	return apply_filters( 'ccp_get_portfolio_description', ccp_get_setting( 'portfolio_description' ) );
+function mc_get_portfolio_description() {
+	return apply_filters( 'mc_get_portfolio_description', mc_get_setting( 'portfolio_description' ) );
 }
 
 /**
@@ -40,8 +40,8 @@ function ccp_get_portfolio_description() {
  * @access public
  * @return string
  */
-function ccp_get_portfolio_rewrite_base() {
-	return apply_filters( 'ccp_get_portfolio_rewrite_base', ccp_get_setting( 'portfolio_rewrite_base' ) );
+function mc_get_portfolio_rewrite_base() {
+	return apply_filters( 'mc_get_portfolio_rewrite_base', mc_get_setting( 'portfolio_rewrite_base' ) );
 }
 
 /**
@@ -51,8 +51,8 @@ function ccp_get_portfolio_rewrite_base() {
  * @access public
  * @return string
  */
-function ccp_get_project_rewrite_base() {
-	return apply_filters( 'ccp_get_project_rewrite_base', ccp_get_setting( 'project_rewrite_base' ) );
+function mc_get_project_rewrite_base() {
+	return apply_filters( 'mc_get_project_rewrite_base', mc_get_setting( 'project_rewrite_base' ) );
 }
 
 /**
@@ -62,8 +62,8 @@ function ccp_get_project_rewrite_base() {
  * @access public
  * @return string
  */
-function ccp_get_category_rewrite_base() {
-	return apply_filters( 'ccp_get_category_rewrite_base', ccp_get_setting( 'category_rewrite_base' ) );
+function mc_get_category_rewrite_base() {
+	return apply_filters( 'mc_get_category_rewrite_base', mc_get_setting( 'category_rewrite_base' ) );
 }
 
 /**
@@ -73,8 +73,8 @@ function ccp_get_category_rewrite_base() {
  * @access public
  * @return string
  */
-function ccp_get_tag_rewrite_base() {
-	return apply_filters( 'ccp_get_tag_rewrite_base', ccp_get_setting( 'tag_rewrite_base' ) );
+function mc_get_tag_rewrite_base() {
+	return apply_filters( 'mc_get_tag_rewrite_base', mc_get_setting( 'tag_rewrite_base' ) );
 }
 
 /**
@@ -84,8 +84,8 @@ function ccp_get_tag_rewrite_base() {
  * @access public
  * @return string
  */
-function ccp_get_author_rewrite_base() {
-	return apply_filters( 'ccp_get_author_rewrite_base', ccp_get_setting( 'author_rewrite_base' ) );
+function mc_get_author_rewrite_base() {
+	return apply_filters( 'mc_get_author_rewrite_base', mc_get_setting( 'author_rewrite_base' ) );
 }
 
 /**
@@ -95,8 +95,8 @@ function ccp_get_author_rewrite_base() {
  * @access public
  * @return int
  */
-function ccp_get_default_category() {
-	return apply_filters( 'ccp_get_default_category', 0 );
+function mc_get_default_category() {
+	return apply_filters( 'mc_get_default_category', 0 );
 }
 
 /**
@@ -106,8 +106,8 @@ function ccp_get_default_category() {
  * @access public
  * @return int
  */
-function ccp_get_default_tag() {
-	return apply_filters( 'ccp_get_default_tag', 0 );
+function mc_get_default_tag() {
+	return apply_filters( 'mc_get_default_tag', 0 );
 }
 
 /**
@@ -118,10 +118,10 @@ function ccp_get_default_tag() {
  * @param  string  $setting
  * @return mixed
  */
-function ccp_get_setting( $setting ) {
+function mc_get_setting( $setting ) {
 
-	$defaults = ccp_get_default_settings();
-	$settings = wp_parse_args( get_option( 'ccp_settings', $defaults ), $defaults );
+	$defaults = mc_get_default_settings();
+	$settings = wp_parse_args( get_option( 'mc_settings', $defaults ), $defaults );
 
 	return isset( $settings[ $setting ] ) ? $settings[ $setting ] : false;
 }
@@ -133,10 +133,10 @@ function ccp_get_setting( $setting ) {
  * @access public
  * @return array
  */
-function ccp_get_default_settings() {
+function mc_get_default_settings() {
 
 	$settings = array(
-		'portfolio_title'        => __( 'Portfolio', 'custom-content-portfolio' ),
+		'portfolio_title'        => __( 'Portfolio', 'music-composition' ),
 		'portfolio_description'  => '',
 		'portfolio_rewrite_base' => 'portfolio',
 		'project_rewrite_base'   => 'projects',
