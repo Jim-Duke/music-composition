@@ -163,7 +163,7 @@ final class MC_Project_Edit {
 					</label>
 					<a href="#mc-project-sticky" class="mc-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'music-composition' ); ?></a>
 					<a href="#mc-project-sticky" class="mc-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'music-composition' ); ?></a>
-				</div><!-- #ccp-sticky-edit -->
+				</div><!-- #mc-sticky-edit -->
 
 			<?php endif; ?>
 

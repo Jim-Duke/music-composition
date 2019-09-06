@@ -24,7 +24,7 @@ add_action( 'members_register_caps', 'mc_register_caps' );
  * @access public
  * @return void
  */
-function ccp_register_cap_groups() {
+function mc_register_cap_groups() {
 
 	$group = members_get_cap_group( 'type-' . mc_get_project_post_type() );
 

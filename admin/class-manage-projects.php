@@ -249,7 +249,7 @@ final class MC_Manage_Projects {
 	 */
 	public function display_post_states( $states, $post ) {
 
-		if ( ccp_is_project_sticky( $post->ID ) )
+		if ( mc_is_project_sticky( $post->ID ) )
 			$states['sticky'] = esc_html__( 'Sticky', 'music-composition' );
 
 		return $states;

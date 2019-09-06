@@ -173,7 +173,7 @@ final class MC_Settings_Page {
 	public function field_portfolio_title() { ?>
 
 		<label>
-			<input type="text" class="regular-text" name="mc_settings[portfolio_title]" value="<?php echo esc_attr( ccp_get_portfolio_title() ); ?>" />
+			<input type="text" class="regular-text" name="mc_settings[portfolio_title]" value="<?php echo esc_attr( mc_get_portfolio_title() ); ?>" />
 			<br />
 			<span class="description"><?php esc_html_e( 'The name of your portfolio. May be used for the portfolio page title and other places, depending on your theme.', 'music-composition' ); ?></span>
 		</label>
