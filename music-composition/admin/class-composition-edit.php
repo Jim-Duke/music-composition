@@ -1,6 +1,6 @@
 <?php
 /**
- * New/Edit project admin screen.
+ * New/Edit composition admin screen.
  *
  * @package    MusicComposition
  * @subpackage Admin
@@ -16,7 +16,7 @@
  * @since  1.0.0
  * @access public
  */
-final class MC_Project_Edit {
+final class MC_Composition_Edit {
 
 	/**
 	 * Sets up the needed actions.
@@ -31,11 +31,11 @@ final class MC_Project_Edit {
 		add_action( 'load-post-new.php', array( $this, 'load' ) );
 
 		// Add the help tabs.
-		add_action( 'mc_load_project_edit', array( $this, 'add_help_tabs' ) );
+		add_action( 'mc_load_composition_edit', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
-	 * Runs on the page load. Checks if we're viewing the project post type and adds
+	 * Runs on the page load. Checks if we're viewing the composition post type and adds
 	 * the appropriate actions/filters for the page.
 	 *
 	 * @since  1.0.0
@@ -45,14 +45,14 @@ final class MC_Project_Edit {
 	public function load() {
 
 		$screen       = get_current_screen();
-		$project_type = mc_get_project_post_type();
+		$composition_type = mc_get_composition_post_type();
 
-		// Bail if not on the projects screen.
-		if ( empty( $screen->post_type ) || $project_type !== $screen->post_type )
+		// Bail if not on the compositions screen.
+		if ( empty( $screen->post_type ) || $composition_type !== $screen->post_type )
 			return;
 
-		// Custom action for loading the edit project screen.
-		do_action( 'mc_load_project_edit' );
+		// Custom action for loading the edit composition screen.
+		do_action( 'mc_load_composition_edit' );
 
 		// Enqueue scripts and styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -82,7 +82,7 @@ final class MC_Project_Edit {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_script( 'mc-edit-project' );
+		wp_enqueue_script( 'mc-edit-composition' );
 	}
 
 	/**
@@ -121,7 +121,7 @@ final class MC_Project_Edit {
 
 	/**
 	 * Callback on the `post_submitbox_misc_actions` hook (submit meta box). This handles
-	 * the output of the sticky project feature.
+	 * the output of the sticky composition feature.
 	 *
 	 * @note   Prior to WP 4.4.0, the `$post` parameter was not passed.
 	 * @since  1.0.0
@@ -137,17 +137,17 @@ final class MC_Project_Edit {
 		}
 
 		// Get the post type object.
-		$post_type_object = get_post_type_object( mc_get_project_post_type() );
+		$post_type_object = get_post_type_object( mc_get_composition_post_type() );
 
-		// Is the project sticky?
-		$is_sticky = mc_is_project_sticky( $post->ID );
+		// Is the composition sticky?
+		$is_sticky = mc_is_composition_sticky( $post->ID );
 
-		// Set the label based on whether the project is sticky.
+		// Set the label based on whether the composition is sticky.
 		$label = $is_sticky ? esc_html__( 'Sticky', 'music-composition' ) : esc_html__( 'Not Sticky', 'music-composition' ); ?>
 
-		<div class="misc-pub-section curtime misc-pub-project-sticky">
+		<div class="misc-pub-section curtime misc-pub-composition-sticky">
 
-			<?php wp_nonce_field( 'mc_project_publish_box_nonce', 'mc_project_publish_box' ); ?>
+			<?php wp_nonce_field( 'mc_composition_publish_box_nonce', 'mc_composition_publish_box' ); ?>
 
 			<i class="dashicons dashicons-sticky"></i>
 			<?php printf( esc_html__( 'Sticky: %s', 'music-composition' ), "<strong class='mc-sticky-status'>{$label}</strong>" ); ?>
@@ -158,20 +158,20 @@ final class MC_Project_Edit {
 
 				<div id="mc-sticky-edit" class="hide-if-js">
 					<label>
-						<input type="checkbox" name="mc_project_sticky" id="mc-project-sticky" <?php checked( $is_sticky ); ?> value="true" />
-						<?php esc_html_e( 'Stick to the portfolio page', 'music-composition' ); ?>
+						<input type="checkbox" name="mc_composition_sticky" id="mc-composition-sticky" <?php checked( $is_sticky ); ?> value="true" />
+						<?php esc_html_e( 'Stick to the library page', 'music-composition' ); ?>
 					</label>
-					<a href="#mc-project-sticky" class="mc-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'music-composition' ); ?></a>
-					<a href="#mc-project-sticky" class="mc-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'music-composition' ); ?></a>
+					<a href="#mc-composition-sticky" class="mc-save-sticky hide-if-no-js button"><?php esc_html_e( 'OK', 'music-composition' ); ?></a>
+					<a href="#mc-composition-sticky" class="mc-cancel-sticky hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'music-composition' ); ?></a>
 				</div><!-- #mc-sticky-edit -->
 
 			<?php endif; ?>
 
-		</div><!-- .misc-pub-project-sticky -->
+		</div><!-- .misc-pub-composition-sticky -->
 	<?php }
 
 	/**
-	 * Output the project details box.  TBD - decide whether we need to keep this.
+	 * Output the composition details box.  TBD - decide whether we need to keep this.
 	 *
 	 * @since      1.0.0
 	 * @deprecated 2.0.0
@@ -179,10 +179,10 @@ final class MC_Project_Edit {
 	 * @param      object  $post
 	 * @return     void
 	 */
-	public function project_details_box( $post ) {}
+	public function composition_details_box( $post ) {}
 
 	/**
-	 * Save project details settings on post save.
+	 * Save composition details settings on post save.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -192,24 +192,24 @@ final class MC_Project_Edit {
 	public function update( $post_id ) {
 
 		// Verify the nonce.
-		if ( ! isset( $_POST['mc_project_publish_box'] ) || ! wp_verify_nonce( $_POST['mc_project_publish_box'], 'mc_project_publish_box_nonce' ) )
+		if ( ! isset( $_POST['mc_composition_publish_box'] ) || ! wp_verify_nonce( $_POST['mc_composition_publish_box'], 'mc_composition_publish_box_nonce' ) )
 			return;
 
 		// Is the sticky checkbox checked?
-		$should_stick = ! empty( $_POST['mc_project_sticky'] );
+		$should_stick = ! empty( $_POST['mc_composition_sticky'] );
 
-		// If checked, add the project if it is not sticky.
-		if ( $should_stick && ! mc_is_project_sticky( $post_id ) )
-			mc_add_sticky_project( $post_id );
+		// If checked, add the composition if it is not sticky.
+		if ( $should_stick && ! mc_is_composition_sticky( $post_id ) )
+			mc_add_sticky_composition( $post_id );
 
-		// If not checked, remove the project if it is sticky.
-		elseif ( ! $should_stick && mc_is_project_sticky( $post_id ) )
-			mc_remove_sticky_project( $post_id );
+		// If not checked, remove the composition if it is sticky.
+		elseif ( ! $should_stick && mc_is_composition_sticky( $post_id ) )
+			mc_remove_sticky_composition( $post_id );
 	}
 
 	/**
 	 * Filter on the post author drop-down (used in the "Author" meta box) to only show users
-	 * of roles that have the correct capability for editing portfolio projects.
+	 * of roles that have the correct capability for editing compositions..
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -223,7 +223,7 @@ final class MC_Project_Edit {
 		global $wp_roles, $post;
 
 		// Check that this is the correct drop-down.
-		if ( 'post_author_override' === $r['name'] && mc_get_project_post_type() === $post->post_type ) {
+		if ( 'post_author_override' === $r['name'] && mc_get_composition_post_type() === $post->post_type ) {
 
 			$roles = array();
 
@@ -231,7 +231,7 @@ final class MC_Project_Edit {
 			foreach ( $wp_roles->roles as $name => $role ) {
 
 				// Get the edit posts cap.
-				$cap = get_post_type_object( mc_get_project_post_type() )->cap->edit_posts;
+				$cap = get_post_type_object( mc_get_composition_post_type() )->cap->edit_posts;
 
 				// If the role is granted the edit posts cap, add it.
 				if ( isset( $role['capabilities'][ $cap ] ) && true === $role['capabilities'][ $cap ] )
@@ -268,12 +268,12 @@ final class MC_Project_Edit {
 			)
 		);
 
-		// Project details help tab.
+		// Composition details help tab.
 		$screen->add_help_tab(
 			array(
 				'id'       => 'project_details',
-				'title'    => esc_html__( 'Project Details', 'music-composition' ),
-				'callback' => array( $this, 'help_tab_project_details' )
+				'title'    => esc_html__( 'Composition Details', 'music-composition' ),
+				'callback' => array( $this, 'help_tab_composition_details' )
 			)
 		);
 
@@ -291,31 +291,31 @@ final class MC_Project_Edit {
 	public function help_tab_title_editor() { ?>
 
 		<ul>
-			<li><?php _e( "<strong>Title:</strong> Enter a title for your project. After you enter a title, you'll see the permalink below, which you can edit.", 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your project. You can insert text, media, or shortcodes.', 'music-composition' ); ?></li>
+			<li><?php _e( "<strong>Title:</strong> Enter a title for your composition. After you enter a title, you'll see the permalink below, which you can edit.", 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Editor:</strong> The editor allows you to add or edit content for your composition. You can insert text, media, or shortcodes.', 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
 	/**
-	 * Displays the project details help tab.
+	 * Displays the composition details help tab.
 	 *
 	 * @since  1.0.0
 	 * @access public
 	 * @return void
 	 */
-	public function help_tab_project_details() { ?>
+	public function help_tab_composition_details() { ?>
 
 		<p>
-			<?php esc_html_e( 'The Project Details meta box allows you to customize the details of your project. All fields are optional.', 'music-composition' ); ?>
+			<?php esc_html_e( 'The Composition Details meta box allows you to customize the details of your composition. All fields are optional.', 'music-composition' ); ?>
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the project, such as a client Web site.', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Client:</strong> The name of the client the project was built for.', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Location:</strong> A physical location where the project took place (e.g., Highland Home, AL, USA).', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Start Date:</strong> The date the project began.', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>End Date:</strong> The date the project was completed.', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Description:</strong> A short summary of the project. Some themes may show this on archive pages.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>URL:</strong> The URL to the Web site or page associated with the composition, such as a client Web site.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Client:</strong> The name of the client the composition was built for.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Location:</strong> A physical location where the composition took place (e.g., Highland Home, AL, USA).', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Start Date:</strong> The date the composition began.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>End Date:</strong> The date the composition was completed.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Description:</strong> A short summary of the composition. Some themes may show this on archive pages.', 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -337,4 +337,4 @@ final class MC_Project_Edit {
 	}
 }
 
-MC_Project_Edit::get_instance();
+MC_Composition_Edit::get_instance();

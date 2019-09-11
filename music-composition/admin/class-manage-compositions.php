@@ -1,6 +1,6 @@
 <?php
 /**
- * Manage projects admin screen.
+ * Manage compositions admin screen.
  *
  * @package    MusicComposition
  * @subpackage Admin
@@ -11,12 +11,12 @@
  */
 
 /**
- * Adds additional columns and features to the projects admin screen.
+ * Adds additional columns and features to the compositions admin screen.
  *
  * @since  1.0.0
  * @access public
  */
-final class MC_Manage_Projects {
+final class MC_Manage_Compositions {
 
 	/**
 	 * Sets up the needed actions.
@@ -29,15 +29,15 @@ final class MC_Manage_Projects {
 
 		add_action( 'load-edit.php', array( $this, 'load' ) );
 
-		// Hook the handler to the manage projects load screen.
-		add_action( 'mc_load_manage_projects', array( $this, 'handler' ), 0 );
+		// Hook the handler to the manage compositions load screen.
+		add_action( 'mc_load_manage_compositions', array( $this, 'handler' ), 0 );
 
 		// Add the help tabs.
-		add_action( 'mc_load_manage_projects', array( $this, 'add_help_tabs' ) );
+		add_action( 'mc_load_manage_compositions', array( $this, 'add_help_tabs' ) );
 	}
 
 	/**
-	 * Runs on the page load. Checks if we're viewing the project post type and adds
+	 * Runs on the page load. Checks if we're viewing the composition post type and adds
 	 * the appropriate actions/filters for the page.
 	 *
 	 * @since  1.0.0
@@ -47,20 +47,20 @@ final class MC_Manage_Projects {
 	public function load() {
 
 		$screen       = get_current_screen();
-		$project_type = mc_get_project_post_type();
+		$composition_type = mc_get_composition_post_type();
 
-		// Bail if not on the projects screen.
-		if ( empty( $screen->post_type ) || $project_type !== $screen->post_type )
+		// Bail if not on the compositions screen.
+		if ( empty( $screen->post_type ) || $composition_type !== $screen->post_type )
 			return;
 
-		// Custom action for loading the manage projects screen.
-		do_action( 'mc_load_manage_projects' );
+		// Custom action for loading the manage compositions screen.
+		do_action( 'mc_load_manage_compositions' );
 
 		// Filter the `request` vars.
 		add_filter( 'request', array( $this, 'request' ) );
 
 		// Add custom views.
-		add_filter( "views_edit-{$project_type}", array( $this, 'views' ) );
+		add_filter( "views_edit-{$composition_type}", array( $this, 'views' ) );
 
 		// Category and tag table filters.
 		add_action( 'restrict_manage_posts', array( $this, 'categories_dropdown' ) );
@@ -92,9 +92,9 @@ final class MC_Manage_Projects {
 
 		$new_vars = array();
 
-		// If viewing sticky projects.
+		// If viewing sticky compositions.
 		if ( isset( $_GET['sticky'] ) && 1 == $_GET['sticky'] )
-			$new_vars['post__in'] = mc_get_sticky_projects();
+			$new_vars['post__in'] = mc_get_sticky_compositions();
 
 		// Return the vars, merging with the new ones.
 		return array_merge( $vars, $new_vars );
@@ -126,10 +126,10 @@ final class MC_Manage_Projects {
 	 */
 	public function views( $views ) {
 
-		$count = count( mc_get_sticky_projects() );
+		$count = count( mc_get_sticky_compositions() );
 
 		if ( 0 < $count ) {
-			$post_type = mc_get_project_post_type();
+			$post_type = mc_get_composition_post_type();
 
 			$noop = _n( 'Sticky <span class="count">(%s)</span>', 'Sticky <span class="count">(%s)</span>', $count, 'music-composition' );
 			$text = sprintf( $noop, number_format_i18n( $count ) );
@@ -194,7 +194,7 @@ final class MC_Manage_Projects {
 	}
 
 	/**
-	 * Sets up custom columns on the projects edit screen.
+	 * Sets up custom columns on the compositions edit screen.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -205,7 +205,7 @@ final class MC_Manage_Projects {
 
 		$new_columns = array(
 			'cb'    => $columns['cb'],
-			'title' => __( 'Project', 'music-composition' )
+			'title' => __( 'Composition', 'music-composition' )
 		);
 
 		if ( current_theme_supports( 'post-thumbnails' ) )
@@ -219,7 +219,7 @@ final class MC_Manage_Projects {
 	}
 
 	/**
-	 * Displays the content of custom project columns on the edit screen.
+	 * Displays the content of custom composition columns on the edit screen.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -240,7 +240,7 @@ final class MC_Manage_Projects {
 	}
 
 	/**
-	 * Filter for the `post_states` hook.  We're going to add the project type.
+	 * Filter for the `post_states` hook.  We're going to add the composition type.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -266,20 +266,20 @@ final class MC_Manage_Projects {
 	 */
 	function row_actions( $actions, $post ) {
 
-		$post_type_object = get_post_type_object( mc_get_project_post_type() );
-		$project_id = mc_get_project_id( $post->ID );
+		$post_type_object = get_post_type_object( mc_get_composition_post_type() );
+		$composition_id = mc_get_composition_id( $post->ID );
 
-		if ( 'trash' === get_post_status( $project_id ) || ! current_user_can( $post_type_object->cap->publish_posts ) )
+		if ( 'trash' === get_post_status( $composition_id ) || ! current_user_can( $post_type_object->cap->publish_posts ) )
 			return $actions;
 
-		$current_url = remove_query_arg( array( 'project_id', 'mc_project_notice' ) );
+		$current_url = remove_query_arg( array( 'composition_id', 'mc_composition_notice' ) );
 
 		// Build text.
-		$text = mc_is_project_sticky( $project_id ) ? esc_html__( 'Unstick', 'music-composition' ) : esc_html__( 'Stick', 'music-composition' );
+		$text = mc_is_composition_sticky( $composition_id ) ? esc_html__( 'Unstick', 'music-composition' ) : esc_html__( 'Stick', 'music-composition' );
 
 		// Build toggle URL.
-		$url = add_query_arg( array( 'project_id' => $project_id, 'action' => 'mc_toggle_sticky' ), $current_url );
-		$url = wp_nonce_url( $url, "mc_toggle_sticky_{$project_id}" );
+		$url = add_query_arg( array( 'composition_id' => $composition_id, 'action' => 'mc_toggle_sticky' ), $current_url );
+		$url = wp_nonce_url( $url, "mc_toggle_sticky_{$composition_id}" );
 
 		// Add sticky action.
 		$actions['sticky'] = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), 'sticky', esc_html( $text ) );
@@ -305,20 +305,20 @@ final class MC_Manage_Projects {
 	public function handler() {
 
 		// Checks if the sticky toggle link was clicked.
-		if ( isset( $_GET['action'] ) && 'mc_toggle_sticky' === $_GET['action'] && isset( $_GET['project_id'] ) ) {
+		if ( isset( $_GET['action'] ) && 'mc_toggle_sticky' === $_GET['action'] && isset( $_GET['composition_id'] ) ) {
 
-			$project_id = absint( mc_get_project_id( $_GET['project_id'] ) );
+			$composition_id = absint( mc_get_composition_id( $_GET['composition_id'] ) );
 
 			// Verify the nonce.
-			check_admin_referer( "mc_toggle_sticky_{$project_id}" );
+			check_admin_referer( "mc_toggle_sticky_{$composition_id}" );
 
-			if ( mc_is_project_sticky( $project_id ) )
-				mc_remove_sticky_project( $project_id );
+			if ( mc_is_composition_sticky( $composition_id ) )
+				mc_remove_sticky_composition( $composition_id );
 			else
-				mc_add_sticky_project( $project_id );
+				mc_add_sticky_composition( $composition_id );
 
 			// Redirect to correct admin page.
-			$redirect = add_query_arg( array( 'updated' => 1 ), remove_query_arg( array( 'action', 'project_id', '_wpnonce' ) ) );
+			$redirect = add_query_arg( array( 'updated' => 1 ), remove_query_arg( array( 'action', 'composition_id', '_wpnonce' ) ) );
 			wp_safe_redirect( esc_url_raw( $redirect ) );
 
 			// Always exit for good measure.
@@ -380,7 +380,7 @@ final class MC_Manage_Projects {
 	public function help_tab_overview() { ?>
 
 		<p>
-			<?php esc_html_e( 'This screen provides access to all of your portfolio projects. You can customize the display of this screen to suit your workflow.', 'music-composition' ); ?>
+			<?php esc_html_e( 'This screen provides access to all of your compositions. You can customize the display of this screen to suit your workflow.', 'music-composition' ); ?>
 		</p>
 	<?php }
 
@@ -398,10 +398,10 @@ final class MC_Manage_Projects {
 		</p>
 
 		<ul>
-			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many projects to list per screen using the Screen Options tab.', 'music-composition' ); ?></li>
-			<li><?php esc_html_e( 'You can filter the list of projects by post status using the text links in the upper left to show All, Published, Draft, or Trashed projects. The default view is to show all projects.', 'music-composition' ); ?></li>
-			<li><?php esc_html_e( 'You can view projects in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'music-composition' ); ?></li>
-			<li><?php esc_html_e( 'You can refine the list to show only projects in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the projects list. Click the Filter button after making your selection. You also can refine the list by clicking on the project author, category or tag in the posts list.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can hide/display columns based on your needs and decide how many compositions to list per screen using the Screen Options tab.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can filter the list of compositions by post status using the text links in the upper left to show All, Published, Draft, or Trashed compositions. The default view is to show all compositions.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can view compositions in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right.', 'music-composition' ); ?></li>
+			<li><?php esc_html_e( 'You can refine the list to show only compositions in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the compositions list. Click the Filter button after making your selection. You also can refine the list by clicking on the project author, category or tag in the posts list.', 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -415,14 +415,14 @@ final class MC_Manage_Projects {
 	public function help_tab_available_actions() { ?>
 
 		<p>
-			<?php esc_html_e( 'Hovering over a row in the projects list will display action links that allow you to manage your project. You can perform the following actions:', 'music-composition' ); ?>
+			<?php esc_html_e( 'Hovering over a row in the compositions list will display action links that allow you to manage your composition. You can perform the following actions:', 'music-composition' ); ?>
 		</p>
 
 		<ul>
-			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that project. You can also reach that screen by clicking on the project title.', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Quick Edit</strong> provides inline access to the metadata of your project, allowing you to update project details without leaving this screen.', 'music-composition' ); ?></li>
-			<li><?php _e( '<strong>Trash</strong> removes your project from this list and places it in the trash, from which you can permanently delete it.', 'music-composition' ); ?></li>
-			<li><?php _e( "<strong>Preview</strong> will show you what your draft project will look like if you publish it. View will take you to your live site to view the project. Which link is available depends on your project's status.", 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Edit</strong> takes you to the editing screen for that composition. You can also reach that screen by clicking on the composition title.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Quick Edit</strong> provides inline access to the metadata of your composition, allowing you to update composition details without leaving this screen.', 'music-composition' ); ?></li>
+			<li><?php _e( '<strong>Trash</strong> removes your composition from this list and places it in the trash, from which you can permanently delete it.', 'music-composition' ); ?></li>
+			<li><?php _e( "<strong>Preview</strong> will show you what your draft composition will look like if you publish it. View will take you to your live site to view the composition. Which link is available depends on your composition's status.", 'music-composition' ); ?></li>
 		</ul>
 	<?php }
 
@@ -444,4 +444,4 @@ final class MC_Manage_Projects {
 	}
 }
 
-MC_Manage_Projects::get_instance();
+MC_Manage_Compositions::get_instance();

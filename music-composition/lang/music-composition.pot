@@ -1,0 +1,892 @@
+# Copyright (C) 2017 Custom Content Portfolio
+# This file is distributed under the same license as the Custom Content Portfolio package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Content Portfolio 2.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-content-portfolio\n"
+"POT-Creation-Date: 2017-09-29 20:18:36+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/butterbean/inc/controls/class-control-datetime.php:79
+msgid "Year"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-datetime.php:88
+msgid "Month"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-datetime.php:112
+msgid "Day"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-datetime.php:120
+msgid "Hour"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-datetime.php:128
+msgid "Minute"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-datetime.php:136
+msgid "Second"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-image.php:66
+msgid "Add image"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-image.php:67
+msgid "Set as image"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-image.php:68
+msgid "Choose image"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-image.php:69
+msgid "Change image"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-image.php:70
+msgid "Remove image"
+msgstr ""
+
+#: admin/butterbean/inc/controls/class-control-image.php:71
+msgid "No image selected"
+msgstr ""
+
+#. Translators: 1: month, 2: day, 3: year, 4: hour, 5: minute, 6: second.
+
+#: admin/butterbean/tmpl/control-datetime.php:46
+msgid "%1$s %2$s, %3$s @ %4$s:%5$s:%6$s"
+msgstr ""
+
+#. Translators: 1: month, 2: day, 3: year.
+
+#: admin/butterbean/tmpl/control-datetime.php:52
+msgid "%1$s %2$s, %3$s"
+msgstr ""
+
+#: admin/class-manage-projects.php:134
+msgid "Sticky <span class=\"count\">(%s)</span>"
+msgid_plural "Sticky <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-manage-projects.php:208 inc/functions-post-types.php:84
+#: inc/functions-post-types.php:86
+msgid "Project"
+msgstr ""
+
+#: admin/class-manage-projects.php:212
+msgid "Thumbnail"
+msgstr ""
+
+#: admin/class-manage-projects.php:253 admin/class-project-edit.php:146
+#: admin/functions-admin.php:40
+msgid "Sticky"
+msgstr ""
+
+#: admin/class-manage-projects.php:278
+msgid "Unstick"
+msgstr ""
+
+#: admin/class-manage-projects.php:278
+msgid "Stick"
+msgstr ""
+
+#: admin/class-manage-projects.php:346
+msgid "Overview"
+msgstr ""
+
+#: admin/class-manage-projects.php:355
+msgid "Screen Content"
+msgstr ""
+
+#: admin/class-manage-projects.php:364
+msgid "Available Actions"
+msgstr ""
+
+#: admin/class-manage-projects.php:383
+msgid "This screen provides access to all of your portfolio projects. You can customize the display of this screen to suit your workflow."
+msgstr ""
+
+#: admin/class-manage-projects.php:397
+msgid "You can customize the display of this screen's contents in a number of ways:"
+msgstr ""
+
+#: admin/class-manage-projects.php:401
+msgid "You can hide/display columns based on your needs and decide how many projects to list per screen using the Screen Options tab."
+msgstr ""
+
+#: admin/class-manage-projects.php:402
+msgid "You can filter the list of projects by post status using the text links in the upper left to show All, Published, Draft, or Trashed projects. The default view is to show all projects."
+msgstr ""
+
+#: admin/class-manage-projects.php:403
+msgid "You can view projects in a simple title list or with an excerpt. Choose the view you prefer by clicking on the icons at the top of the list on the right."
+msgstr ""
+
+#: admin/class-manage-projects.php:404
+msgid "You can refine the list to show only projects in a specific category, with a specific tag, or from a specific month by using the dropdown menus above the projects list. Click the Filter button after making your selection. You also can refine the list by clicking on the project author, category or tag in the posts list."
+msgstr ""
+
+#: admin/class-manage-projects.php:418
+msgid "Hovering over a row in the projects list will display action links that allow you to manage your project. You can perform the following actions:"
+msgstr ""
+
+#: admin/class-manage-projects.php:422
+msgid "<strong>Edit</strong> takes you to the editing screen for that project. You can also reach that screen by clicking on the project title."
+msgstr ""
+
+#: admin/class-manage-projects.php:423
+msgid "<strong>Quick Edit</strong> provides inline access to the metadata of your project, allowing you to update project details without leaving this screen."
+msgstr ""
+
+#: admin/class-manage-projects.php:424
+msgid "<strong>Trash</strong> removes your project from this list and places it in the trash, from which you can permanently delete it."
+msgstr ""
+
+#: admin/class-manage-projects.php:425
+msgid "<strong>Preview</strong> will show you what your draft project will look like if you publish it. View will take you to your live site to view the project. Which link is available depends on your project's status."
+msgstr ""
+
+#: admin/class-project-edit.php:146 admin/functions-admin.php:41
+msgid "Not Sticky"
+msgstr ""
+
+#: admin/class-project-edit.php:153
+msgid "Sticky: %s"
+msgstr ""
+
+#: admin/class-project-edit.php:157
+msgid "Edit"
+msgstr ""
+
+#: admin/class-project-edit.php:157
+msgid "Edit sticky status"
+msgstr ""
+
+#: admin/class-project-edit.php:162
+msgid "Stick to the portfolio page"
+msgstr ""
+
+#: admin/class-project-edit.php:164
+msgid "OK"
+msgstr ""
+
+#: admin/class-project-edit.php:165
+msgid "Cancel"
+msgstr ""
+
+#: admin/class-project-edit.php:266
+msgid "Title and Editor"
+msgstr ""
+
+#: admin/class-project-edit.php:275
+msgid "Project Details"
+msgstr ""
+
+#: admin/class-project-edit.php:294
+msgid "<strong>Title:</strong> Enter a title for your project. After you enter a title, you'll see the permalink below, which you can edit."
+msgstr ""
+
+#: admin/class-project-edit.php:295
+msgid "<strong>Editor:</strong> The editor allows you to add or edit content for your project. You can insert text, media, or shortcodes."
+msgstr ""
+
+#: admin/class-project-edit.php:309
+msgid "The Project Details meta box allows you to customize the details of your project. All fields are optional."
+msgstr ""
+
+#: admin/class-project-edit.php:313
+msgid "<strong>URL:</strong> The URL to the Web site or page associated with the project, such as a client Web site."
+msgstr ""
+
+#: admin/class-project-edit.php:314
+msgid "<strong>Client:</strong> The name of the client the project was built for."
+msgstr ""
+
+#: admin/class-project-edit.php:315
+msgid "<strong>Location:</strong> A physical location where the project took place (e.g., Highland Home, AL, USA)."
+msgstr ""
+
+#: admin/class-project-edit.php:316
+msgid "<strong>Start Date:</strong> The date the project began."
+msgstr ""
+
+#: admin/class-project-edit.php:317
+msgid "<strong>End Date:</strong> The date the project was completed."
+msgstr ""
+
+#: admin/class-project-edit.php:318
+msgid "<strong>Description:</strong> A short summary of the project. Some themes may show this on archive pages."
+msgstr ""
+
+#: admin/class-settings.php:53 admin/class-settings.php:309
+msgid "Portfolio Settings"
+msgstr ""
+
+#: admin/class-settings.php:54
+msgid "Settings"
+msgstr ""
+
+#: admin/class-settings.php:84 admin/class-settings.php:338
+msgid "General Settings"
+msgstr ""
+
+#: admin/class-settings.php:85 admin/class-settings.php:347
+msgid "Permalinks"
+msgstr ""
+
+#: admin/class-settings.php:90
+msgid "Title"
+msgstr ""
+
+#: admin/class-settings.php:91 admin/functions-admin.php:101
+#: admin/functions-admin.php:160
+msgid "Description"
+msgstr ""
+
+#: admin/class-settings.php:94
+msgid "Portfolio Base"
+msgstr ""
+
+#: admin/class-settings.php:95
+msgid "Project Slug"
+msgstr ""
+
+#: admin/class-settings.php:96
+msgid "Category Slug"
+msgstr ""
+
+#: admin/class-settings.php:97
+msgid "Tag Slug"
+msgstr ""
+
+#: admin/class-settings.php:98
+msgid "Author Slug"
+msgstr ""
+
+#: admin/class-settings.php:117 inc/functions-capabilities.php:33
+#: inc/functions-options.php:139 inc/functions-post-types.php:85
+msgid "Portfolio"
+msgstr ""
+
+#: admin/class-settings.php:162
+msgid "General portfolio settings for your site."
+msgstr ""
+
+#: admin/class-settings.php:178
+msgid "The name of your portfolio. May be used for the portfolio page title and other places, depending on your theme."
+msgstr ""
+
+#: admin/class-settings.php:202
+msgid "Your portfolio description. This may be shown by your theme on the portfolio page."
+msgstr ""
+
+#: admin/class-settings.php:216
+msgid "Set up custom permalinks for the portfolio section on your site."
+msgstr ""
+
+#: admin/class-settings.php:316
+msgid "Update Settings"
+msgstr ""
+
+#: admin/class-settings.php:366
+msgid "<strong>Title:</strong> Allows you to set the title for the portfolio section on your site. This is general shown on the portfolio projects archive, but themes and other plugins may use it in other ways."
+msgstr ""
+
+#: admin/class-settings.php:367
+msgid "<strong>Description:</strong> This is the description for your portfolio. Some themes may display this on the portfolio projects archive."
+msgstr ""
+
+#: admin/class-settings.php:381
+msgid "<strong>Portfolio Base:</strong> The primary URL for the portfolio section on your site. It lists your portfolio projects."
+msgstr ""
+
+#: admin/class-settings.php:383
+msgid "<strong>Project Slug:</strong> The slug for single portfolio projects. You can use something custom, leave this field empty, or use one of the following tags:"
+msgstr ""
+
+#: admin/class-settings.php:385
+msgid "%s - The project author name."
+msgstr ""
+
+#: admin/class-settings.php:386
+msgid "%s - The project category."
+msgstr ""
+
+#: admin/class-settings.php:387
+msgid "%s - The project tag."
+msgstr ""
+
+#: admin/class-settings.php:390
+msgid "<strong>Category Slug:</strong> The base slug used for portfolio category archives."
+msgstr ""
+
+#: admin/class-settings.php:391
+msgid "<strong>Tag Slug:</strong> The base slug used for portfolio tag archives."
+msgstr ""
+
+#: admin/class-settings.php:392
+msgid "<strong>Author Slug:</strong> The base slug used for portfolio author archives."
+msgstr ""
+
+#: admin/functions-admin.php:74
+msgid "Project Details:"
+msgstr ""
+
+#: admin/functions-admin.php:85
+msgid "General"
+msgstr ""
+
+#: admin/functions-admin.php:93
+msgid "Date"
+msgstr ""
+
+#: admin/functions-admin.php:112
+msgid "URL"
+msgstr ""
+
+#: admin/functions-admin.php:113
+msgid "Enter the URL of the project Web page."
+msgstr ""
+
+#: admin/functions-admin.php:119
+msgid "Jane Doe"
+msgstr ""
+
+#: admin/functions-admin.php:120
+msgid "Client"
+msgstr ""
+
+#: admin/functions-admin.php:121
+msgid "Enter the name of the client for the project."
+msgstr ""
+
+#: admin/functions-admin.php:127
+msgid "Highland Home, AL"
+msgstr ""
+
+#: admin/functions-admin.php:128
+msgid "Location"
+msgstr ""
+
+#: admin/functions-admin.php:129
+msgid "Enter the physical location of the project."
+msgstr ""
+
+#: admin/functions-admin.php:136
+msgid "Start Date"
+msgstr ""
+
+#: admin/functions-admin.php:137
+msgid "Select the date the project began."
+msgstr ""
+
+#: admin/functions-admin.php:144
+msgid "End Date"
+msgstr ""
+
+#: admin/functions-admin.php:145
+msgid "Select the date the project was completed."
+msgstr ""
+
+#: admin/functions-admin.php:161
+msgid "Write a short description (excerpt) of the project."
+msgstr ""
+
+#: admin/functions-admin.php:255
+msgid "Documentation"
+msgstr ""
+
+#: admin/functions-admin.php:256
+msgid "Support Forums"
+msgstr ""
+
+#: admin/functions-admin.php:261
+msgid "For more information:"
+msgstr ""
+
+#: inc/functions-capabilities.php:52
+msgid "Create Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:53
+msgid "Edit Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:54
+msgid "Edit Others' Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:55
+msgid "Read Private Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:56
+msgid "Delete Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:57
+msgid "Delete Private Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:58
+msgid "Delete Published Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:59
+msgid "Delete Others' Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:60
+msgid "Edit Private Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:61
+msgid "Edit Published Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:62
+msgid "Publish Projects"
+msgstr ""
+
+#: inc/functions-capabilities.php:65
+msgid "Assign Project Categories"
+msgstr ""
+
+#: inc/functions-capabilities.php:66
+msgid "Delete Project Categories"
+msgstr ""
+
+#: inc/functions-capabilities.php:67
+msgid "Edit Project Categories"
+msgstr ""
+
+#: inc/functions-capabilities.php:68
+msgid "Manage Project Categories"
+msgstr ""
+
+#: inc/functions-capabilities.php:71
+msgid "Assign Project Tags"
+msgstr ""
+
+#: inc/functions-capabilities.php:72
+msgid "Delete Project Tags"
+msgstr ""
+
+#: inc/functions-capabilities.php:73
+msgid "Edit Project Tags"
+msgstr ""
+
+#: inc/functions-capabilities.php:74
+msgid "Manage Project Tags"
+msgstr ""
+
+#: inc/functions-filters.php:124
+msgid "Visit Project"
+msgstr ""
+
+#: inc/functions-filters.php:125
+msgid "Client: %s"
+msgstr ""
+
+#: inc/functions-filters.php:126
+msgid "Location: %s"
+msgstr ""
+
+#: inc/functions-filters.php:127
+msgid "Started: %s"
+msgstr ""
+
+#: inc/functions-filters.php:128
+msgid "Completed: %s"
+msgstr ""
+
+#: inc/functions-post-types.php:83 inc/functions-post-types.php:96
+msgid "Projects"
+msgstr ""
+
+#: inc/functions-post-types.php:87 inc/functions-post-types.php:90
+msgid "New Project"
+msgstr ""
+
+#: inc/functions-post-types.php:88
+msgid "Add New Project"
+msgstr ""
+
+#: inc/functions-post-types.php:89
+msgid "Edit Project"
+msgstr ""
+
+#: inc/functions-post-types.php:91
+msgid "View Project"
+msgstr ""
+
+#: inc/functions-post-types.php:92
+msgid "View Projects"
+msgstr ""
+
+#: inc/functions-post-types.php:93
+msgid "Search Projects"
+msgstr ""
+
+#: inc/functions-post-types.php:94
+msgid "No projects found"
+msgstr ""
+
+#: inc/functions-post-types.php:95
+msgid "No projects found in trash"
+msgstr ""
+
+#: inc/functions-post-types.php:97
+msgid "Project Image"
+msgstr ""
+
+#: inc/functions-post-types.php:98
+msgid "Set project image"
+msgstr ""
+
+#: inc/functions-post-types.php:99
+msgid "Remove project image"
+msgstr ""
+
+#: inc/functions-post-types.php:100
+msgid "Use as project image"
+msgstr ""
+
+#: inc/functions-post-types.php:101
+msgid "Insert into project"
+msgstr ""
+
+#: inc/functions-post-types.php:102
+msgid "Uploaded to this project"
+msgstr ""
+
+#: inc/functions-post-types.php:103
+msgid "Filter projects list"
+msgstr ""
+
+#: inc/functions-post-types.php:104
+msgid "Projects list navigation"
+msgstr ""
+
+#: inc/functions-post-types.php:105
+msgid "Projects list"
+msgstr ""
+
+#: inc/functions-post-types.php:184
+msgid "Enter project title"
+msgstr ""
+
+#. Translators: Scheduled project date format. See http://php.net/date
+
+#: inc/functions-post-types.php:210
+msgid "M j, Y @ H:i"
+msgstr ""
+
+#: inc/functions-post-types.php:213 inc/functions-post-types.php:214
+msgid "Preview project"
+msgstr ""
+
+#: inc/functions-post-types.php:215
+msgid "View project"
+msgstr ""
+
+#: inc/functions-post-types.php:219 inc/functions-post-types.php:220
+msgid "Project updated."
+msgstr ""
+
+#. Translators: %s is the date and time of the revision.
+
+#: inc/functions-post-types.php:222
+msgid "Project restored to revision from %s."
+msgstr ""
+
+#: inc/functions-post-types.php:223
+msgid "Project published."
+msgstr ""
+
+#: inc/functions-post-types.php:224
+msgid "Project saved."
+msgstr ""
+
+#: inc/functions-post-types.php:225
+msgid "Project submitted."
+msgstr ""
+
+#: inc/functions-post-types.php:226
+msgid "Project scheduled for: %s."
+msgstr ""
+
+#: inc/functions-post-types.php:227
+msgid "Project draft updated."
+msgstr ""
+
+#: inc/functions-post-types.php:246
+msgid "%s project updated."
+msgid_plural "%s projects updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/functions-post-types.php:247
+msgid "%s project not updated, somebody is editing it."
+msgid_plural "%s projects not updated, somebody is editing them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/functions-post-types.php:248
+msgid "%s project permanently deleted."
+msgid_plural "%s projects permanently deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/functions-post-types.php:249
+msgid "%s project moved to the Trash."
+msgid_plural "%s projects moved to the trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/functions-post-types.php:250
+msgid "%s project restored from the Trash."
+msgid_plural "%s projects restored from the trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/functions-taxonomies.php:91
+msgid "Project Categories"
+msgstr ""
+
+#: inc/functions-taxonomies.php:92
+msgid "Project Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:93
+msgid "Categories"
+msgstr ""
+
+#: inc/functions-taxonomies.php:94
+msgid "Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:95
+msgid "Search Categories"
+msgstr ""
+
+#: inc/functions-taxonomies.php:96
+msgid "Popular Categories"
+msgstr ""
+
+#: inc/functions-taxonomies.php:97
+msgid "All Categories"
+msgstr ""
+
+#: inc/functions-taxonomies.php:98
+msgid "Edit Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:99
+msgid "View Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:100
+msgid "Update Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:101
+msgid "Add New Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:102
+msgid "New Category Name"
+msgstr ""
+
+#: inc/functions-taxonomies.php:103
+msgid "No categories found."
+msgstr ""
+
+#: inc/functions-taxonomies.php:104
+msgid "No categories"
+msgstr ""
+
+#: inc/functions-taxonomies.php:105
+msgid "Categories list navigation"
+msgstr ""
+
+#: inc/functions-taxonomies.php:106
+msgid "Categories list"
+msgstr ""
+
+#: inc/functions-taxonomies.php:109
+msgid "Select Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:110
+msgid "Parent Category"
+msgstr ""
+
+#: inc/functions-taxonomies.php:111
+msgid "Parent Category:"
+msgstr ""
+
+#: inc/functions-taxonomies.php:127
+msgid "Project Tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:128
+msgid "Project Tag"
+msgstr ""
+
+#: inc/functions-taxonomies.php:129
+msgid "Tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:130
+msgid "Tag"
+msgstr ""
+
+#: inc/functions-taxonomies.php:131
+msgid "Search Tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:132
+msgid "Popular Tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:133
+msgid "All Tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:134
+msgid "Edit Tag"
+msgstr ""
+
+#: inc/functions-taxonomies.php:135
+msgid "View Tag"
+msgstr ""
+
+#: inc/functions-taxonomies.php:136
+msgid "Update Tag"
+msgstr ""
+
+#: inc/functions-taxonomies.php:137
+msgid "Add New Tag"
+msgstr ""
+
+#: inc/functions-taxonomies.php:138
+msgid "New Tag Name"
+msgstr ""
+
+#: inc/functions-taxonomies.php:139
+msgid "No tags found."
+msgstr ""
+
+#: inc/functions-taxonomies.php:140
+msgid "No tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:141
+msgid "Tags list navigation"
+msgstr ""
+
+#: inc/functions-taxonomies.php:142
+msgid "Tags list"
+msgstr ""
+
+#: inc/functions-taxonomies.php:145
+msgid "Separate tags with commas"
+msgstr ""
+
+#: inc/functions-taxonomies.php:146
+msgid "Add or remove tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:147
+msgid "Choose from the most used tags"
+msgstr ""
+
+#: inc/functions-taxonomies.php:225
+msgid "Category added."
+msgstr ""
+
+#: inc/functions-taxonomies.php:226
+msgid "Category deleted."
+msgstr ""
+
+#: inc/functions-taxonomies.php:227
+msgid "Category updated."
+msgstr ""
+
+#: inc/functions-taxonomies.php:228
+msgid "Category not added."
+msgstr ""
+
+#: inc/functions-taxonomies.php:229
+msgid "Category not updated."
+msgstr ""
+
+#: inc/functions-taxonomies.php:230
+msgid "Categories deleted."
+msgstr ""
+
+#: inc/functions-taxonomies.php:236
+msgid "Tag added."
+msgstr ""
+
+#: inc/functions-taxonomies.php:237
+msgid "Tag deleted."
+msgstr ""
+
+#: inc/functions-taxonomies.php:238
+msgid "Tag updated."
+msgstr ""
+
+#: inc/functions-taxonomies.php:239
+msgid "Tag not added."
+msgstr ""
+
+#: inc/functions-taxonomies.php:240
+msgid "Tag not updated."
+msgstr ""
+
+#: inc/functions-taxonomies.php:241
+msgid "Tags deleted."
+msgstr ""
+
+#: portfolio.php:128 portfolio.php:139
+msgid "Whoah, partner!"
+msgstr ""
+
+#: portfolio.php:150
+msgid "Method does not exist."
+msgstr ""
+
+#: uninstall.php:14
+msgid "%s should only be called when uninstalling the plugin."
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Custom Content Portfolio"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://themehybrid.com/plugins/custom-content-portfolio"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Portfolio manager for WordPress.  This plugin allows you to manage, edit, and create new portfolio items in an unlimited number of portfolios."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Justin Tadlock"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://themehybrid.com"
+msgstr ""

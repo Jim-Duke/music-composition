@@ -2,7 +2,7 @@ jQuery( document ).ready( function() {
 
 	/* === Edit sticky status in the "Publish" meta box. === */
 
-	var sticky_checkbox = jQuery( 'input[name=mc_project_sticky]' );
+	var sticky_checkbox = jQuery( 'input[name=mc_composition_sticky]' );
 	var is_sticky       = jQuery( sticky_checkbox ).prop( 'checked' );
 
 	// When user clicks the "Edit" sticky link.

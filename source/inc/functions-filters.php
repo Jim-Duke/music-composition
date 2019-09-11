@@ -66,38 +66,38 @@ function mc_check_theme_support() {
  */
 function mc_template_include( $template ) {
 
-	// Bail if not a portfolio page.
-	if ( ! mc_is_portfolio() )
+	// Bail if not a library page.
+	if ( ! mc_is_library() )
 		return $template;
 
 	$templates = array();
 
 	// Author archive.
 	if ( mc_is_author() ) {
-		$templates[] = 'portfolio-author.php';
-		$templates[] = 'portfolio-archive.php';
+		$templates[] = 'composition-author.php';
+		$templates[] = 'composition-archive.php';
 
 	// Category archive.
 	} else if ( mc_is_category() ) {
-		$templates[] = 'portfolio-category.php';
-		$templates[] = 'portfolio-archive.php';
+		$templates[] = 'composition-category.php';
+		$templates[] = 'composition-archive.php';
 
 	// Tag archive.
 	} else if ( mc_is_tag() ) {
-		$templates[] = 'portfolio-tag.php';
-		$templates[] = 'portfolio-archive.php';
+		$templates[] = 'composition-tag.php';
+		$templates[] = 'composition-archive.php';
 
-	// Project archive.
-	} else if ( mc_is_project_archive() ) {
-		$templates[] = 'portfolio-archive.php';
+	// Composition archive.
+	} else if ( mc_is_composition_archive() ) {
+		$templates[] = 'composition-archive.php';
 
-	// Single project.
-	} else if ( mc_is_single_project() ) {
-		$templates[] = 'portfolio-project.php';
+	// Single composition.
+	} else if ( mc_is_single_composition() ) {
+		$templates[] = 'composition-project.php';
 	}
 
 	// Fallback template.
-	$templates[] = 'portfolio.php';
+	$templates[] = 'music-composition.php';
 
 	// Check if we have a template.
 	$has_template = locate_template( apply_filters( 'mc_template_hierarchy', $templates ) );
@@ -108,7 +108,7 @@ function mc_template_include( $template ) {
 
 /**
  * Filter on `the_content` for themes that don't support the plugin.  This filter outputs the basic
- * project metadata only.
+ * composition metadata only.
  *
  * @since  1.0.0
  * @access public
@@ -117,26 +117,26 @@ function mc_template_include( $template ) {
  */
 function mc_the_content_filter( $content ) {
 
-	if ( in_the_loop() && mc_is_single_project() && mc_is_project() && ! post_password_required() ) {
+	if ( in_the_loop() && mc_is_single_composition() && mc_is_composition() && ! post_password_required() ) {
 
-		$project_meta = '';
+		$composition_meta = '';
 
-		$project_meta .= mc_get_project_link(       array( 'text' => esc_html__( 'Visit Project', 'music-composition' ), 'after' => '<br />' ) );
-		$project_meta .= mc_get_project_client(     array( 'text' => esc_html__( 'Client: %s',    'music-composition' ), 'after' => '<br />' ) );
-		$project_meta .= mc_get_project_location(   array( 'text' => esc_html__( 'Location: %s',  'music-composition' ), 'after' => '<br />' ) );
-		$project_meta .= mc_get_project_start_date( array( 'text' => esc_html__( 'Started: %s',   'music-composition' ), 'after' => '<br />' ) );
-		$project_meta .= mc_get_project_end_date(   array( 'text' => esc_html__( 'Completed: %s', 'music-composition' ) ) );
+		$composition_meta .= mc_get_composition_link(       array( 'text' => esc_html__( 'Visit Composition', 'music-composition' ), 'after' => '<br />' ) );
+		$composition_meta .= mc_get_composition_client(     array( 'text' => esc_html__( 'Client: %s',    'music-composition' ), 'after' => '<br />' ) );
+		$composition_meta .= mc_get_composition_location(   array( 'text' => esc_html__( 'Location: %s',  'music-composition' ), 'after' => '<br />' ) );
+		$composition_meta .= mc_get_composition_start_date( array( 'text' => esc_html__( 'Started: %s',   'music-composition' ), 'after' => '<br />' ) );
+		$composition_meta .= mc_get_composition_end_date(   array( 'text' => esc_html__( 'Completed: %s', 'music-composition' ) ) );
 
-		if ( $project_meta )
-			$content .= sprintf( '<p class="project-meta">%s</p>', $project_meta );
+		if ( $composition_meta )
+			$content .= sprintf( '<p class="composition-meta">%s</p>', $project_meta );
 	}
 
 	return $content;
 }
 
 /**
- * Filter on `the_posts` for the project archive. Moves sticky posts to the top of
- * the project archive list.
+ * Filter on `the_posts` for the composition archive. Moves sticky posts to the top of
+ * the composition archive list.
  *
  * @since  1.0.0
  * @access public
@@ -146,15 +146,15 @@ function mc_the_content_filter( $content ) {
  */
 function mc_posts_sticky_filter( $posts, $query ) {
 
-	// Allow devs to filter when to show sticky projects.
-	$show_stickies = apply_filters( 'mc_show_stickies', $query->is_main_query() && ! is_admin() && mc_is_project_archive() && ! is_paged() );
+	// Allow devs to filter when to show sticky compositions.
+	$show_stickies = apply_filters( 'mc_show_stickies', $query->is_main_query() && ! is_admin() && mc_is_composition_archive() && ! is_paged() );
 
 	// If we should show stickies, let's get them.
 	if ( $show_stickies ) {
 
 		remove_filter( 'the_posts', 'mc_posts_sticky_filter' );
 
-		$posts = mc_add_stickies( $posts, mc_get_sticky_projects() );
+		$posts = mc_add_stickies( $posts, mc_get_sticky_compositions() );
 	}
 
 	return $posts;
@@ -205,7 +205,7 @@ function mc_add_stickies( $posts, $sticky_posts ) {
 
 			$args = array(
 					'post__in'    => $sticky_posts,
-					'post_type'   => mc_get_project_post_type(),
+					'post_type'   => mc_get_composition_post_type(),
 					'post_status' => 'publish',
 					'nopaging'    => true
 			);
@@ -250,9 +250,9 @@ function mc_document_title_parts( $title ) {
  */
 function mc_post_type_archive_title( $title, $post_type ) {
 
-	$project_type = mc_get_project_post_type();
+	$composition_type = mc_get_composition_post_type();
 
-	return $project_type === $post_type ? get_post_type_object( mc_get_project_post_type() )->labels->archive_title : $title;
+	return $composition_type === $post_type ? get_post_type_object( mc_get_composition_post_type() )->labels->archive_title : $title;
 }
 
 /**
@@ -269,7 +269,7 @@ function mc_get_the_archive_title( $title ) {
 	if ( mc_is_author() )
 		$title = mc_get_single_author_title();
 
-	else if ( mc_is_project_archive() )
+	else if ( mc_is_composition_archive() )
 		$title = post_type_archive_title( '', false );
 
 	return $title;
@@ -288,14 +288,14 @@ function mc_get_the_archive_description( $desc ) {
 	if ( mc_is_author() )
 		$desc = get_the_author_meta( 'description', get_query_var( 'author' ) );
 
-	else if ( mc_is_project_archive() && ! $desc )
-		$desc = mc_get_portfolio_description();
+	else if ( mc_is_composition_archive() && ! $desc )
+		$desc = mc_get_library_description();
 
 	return $desc;
 }
 
 /**
- * Filter on `post_type_link` to make sure that single portfolio projects have the correct
+ * Filter on `post_type_link` to make sure that single compositions have the correct
  * permalink.
  *
  * @since  0.1.0

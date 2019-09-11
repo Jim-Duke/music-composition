@@ -18,7 +18,7 @@ add_action( 'members_register_caps', 'mc_register_caps' );
 
 /**
  * Overwrites the cap group registered within the Members plugin.  We want
- * the label to read "Portfolio".
+ * the label to read "Composition".
  *
  * @since  2.1.0
  * @access public
@@ -26,11 +26,11 @@ add_action( 'members_register_caps', 'mc_register_caps' );
  */
 function mc_register_cap_groups() {
 
-	$group = members_get_cap_group( 'type-' . mc_get_project_post_type() );
+	$group = members_get_cap_group( 'type-' . mc_get_composition_post_type() );
 
 	if ( $group ) {
 
-		$group->label = __( 'Portfolio', 'music-composition' );
+		$group->label = __( 'Composition', 'music-composition' );
 	}
 }
 
@@ -46,32 +46,32 @@ function mc_register_cap_groups() {
 function mc_register_caps() {
 
 	$caps  = array();
-	$group = sprintf( 'type-%s', mc_get_project_post_type() );
+	$group = sprintf( 'type-%s', mc_get_composition_post_type() );
 
 	// Project caps.
-	$caps['create_portfolio_projects']           = __( 'Create Projects',           'music-composition' );
-	$caps['edit_portfolio_projects']             = __( 'Edit Projects',             'music-composition' );
-	$caps['edit_others_portfolio_projects']      = __( "Edit Others' Projects",     'music-composition' );
-	$caps['read_private_portfolio_projects']     = __( 'Read Private Projects',     'music-composition' );
-	$caps['delete_portfolio_projects']           = __( 'Delete Projects',           'music-composition' );
-	$caps['delete_private_portfolio_projects']   = __( 'Delete Private Projects',   'music-composition' );
-	$caps['delete_published_portfolio_projects'] = __( 'Delete Published Projects', 'music-composition' );
-	$caps['delete_others_portfolio_projects']    = __( "Delete Others' Projects",   'music-composition' );
-	$caps['edit_private_portfolio_projects']     = __( 'Edit Private Projects',     'music-composition' );
-	$caps['edit_published_portfolio_projects']   = __( 'Edit Published Projects',   'music-composition' );
-	$caps['publish_portfolio_projects']          = __( 'Publish Projects',          'music-composition' );
+	$caps['create_compositions']           = __( 'Create Compositions',           'music-composition' );
+	$caps['edit_compositionss']            = __( 'Edit Compositions',             'music-composition' );
+	$caps['edit_others_compositions']      = __( "Edit Others' Compositions",     'music-composition' );
+	$caps['read_private_compositions']     = __( 'Read Private Compositions',     'music-composition' );
+	$caps['delete_compositions']           = __( 'Delete Compositions',           'music-composition' );
+	$caps['delete_private_compositions']   = __( 'Delete Private Compositions',   'music-composition' );
+	$caps['delete_published_compositions'] = __( 'Delete Published Compositions', 'music-composition' );
+	$caps['delete_others_compositions']    = __( "Delete Others' Compositions",   'music-composition' );
+	$caps['edit_private_compositions']     = __( 'Edit Private Compositions',     'music-composition' );
+	$caps['edit_published_compositions']   = __( 'Edit Published Compositions',   'music-composition' );
+	$caps['publish_compositions']          = __( 'Publish Compositions',          'music-composition' );
 
 	// Category caps.
-	$caps['assign_portfolio_categories'] = __( 'Assign Project Categories', 'music-composition' );
-	$caps['delete_portfolio_categories'] = __( 'Delete Project Categories', 'music-composition' );
-	$caps['edit_portfolio_categories']   = __( 'Edit Project Categories',   'music-composition' );
-	$caps['manage_portfolio_categories'] = __( 'Manage Project Categories', 'music-composition' );
+	$caps['assign_composition_categories'] = __( 'Assign Composition Categories', 'music-composition' );
+	$caps['delete_composition_categories'] = __( 'Delete Composition Categories', 'music-composition' );
+	$caps['edit_composition_categories']   = __( 'Edit Composition Categories',   'music-composition' );
+	$caps['manage_composition_categories'] = __( 'Manage Composition Categories', 'music-composition' );
 
 	// Tag caps.
-	$caps['assign_portfolio_tags'] = __( 'Assign Project Tags', 'music-composition' );
-	$caps['delete_portfolio_tags'] = __( 'Delete Project Tags', 'music-composition' );
-	$caps['edit_portfolio_tags']   = __( 'Edit Project Tags',   'music-composition' );
-	$caps['manage_portfolio_tags'] = __( 'Manage Project Tags', 'music-composition' );
+	$caps['assign_composition_tags'] = __( 'Assign Composition Tags', 'music-composition' );
+	$caps['delete_composition_tags'] = __( 'Delete Composition Tags', 'music-composition' );
+	$caps['edit_composition_tags']   = __( 'Edit Composition Tags',   'music-composition' );
+	$caps['manage_composition_tags'] = __( 'Manage Composition Tags', 'music-composition' );
 
 	// Register each of the capabilities.
 	foreach ( $caps as $name => $label )
