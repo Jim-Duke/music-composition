@@ -1,53 +1,31 @@
 <?php
+
 /**
- * Plugin uninstall file.
+ * Fired when the plugin is uninstalled.
  *
- * @package    MusicComposition
- * @author     Jim Duke <jim@dukeboys.org>
- * @copyright  Copyright (c) 2019, Jim Duke
- * @link       https://jim.dukeboys.org/plugins/music-composition
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * When populating this file, consider the following flow
+ * of control:
+ *
+ * - This method should be static
+ * - Check if the $_REQUEST content actually is the plugin name
+ * - Run an admin referrer check to make sure it goes through authentication
+ * - Verify the output of $_GET makes sense
+ * - Repeat with other user roles. Best directly by using the links/query string parameters.
+ * - Repeat things for multisite. Once for a single site in the network, once sitewide.
+ *
+ * This file may be updated more in future version of the Boilerplate; however, this is the
+ * general skeleton and outline for how the file should work.
+ *
+ * For more information, see the following discussion:
+ * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
+ *
+ * @link       https://jim-duke.github.io/music-composition/
+ * @since      1.0.0
+ *
+ * @package    Music_Composition
  */
 
-// Make sure we're actually uninstalling the plugin.
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )
-	wp_die( sprintf( __( '%s should only be called when uninstalling the plugin.', 'music-composition' ), '<code>' . __FILE__ . '</code>' ) );
-
-/* === Delete plugin options. === */
-
-// Remove options.
-delete_option( 'mc_settings'        );
-delete_option( 'mc_sticky_compositions' );
-
-/* === Remove capabilities added by the plugin. === */
-
-// Get the administrator role.
-$role = get_role( 'administrator' );
-
-// If the administrator role exists, remove added capabilities for the plugin.
-if ( ! is_null( $role ) ) {
-
-	// Taxonomy caps.
-	$role->remove_cap( 'manage_composition_categories' );
-	$role->remove_cap( 'edit_composition_categories'   );
-	$role->remove_cap( 'delete_composition_categories' );
-	$role->remove_cap( 'assign_composition_categories' );
-
-	$role->remove_cap( 'manage_composition_tags'       );
-	$role->remove_cap( 'edit_composition_tags'         );
-	$role->remove_cap( 'delete_composition_tags'       );
-	$role->remove_cap( 'assign_composition_tags'       );
-
-	// Post type caps.
-	$role->remove_cap( 'create_compositions'           );
-	$role->remove_cap( 'edit_compositions'             );
-	$role->remove_cap( 'edit_others_compositions'      );
-	$role->remove_cap( 'publish_compositions'          );
-	$role->remove_cap( 'read_private_compositions'     );
-	$role->remove_cap( 'delete_compositions'           );
-	$role->remove_cap( 'delete_private_compositions'   );
-	$role->remove_cap( 'delete_published_compositions' );
-	$role->remove_cap( 'delete_others_compositions'    );
-	$role->remove_cap( 'edit_private_compositions'     );
-	$role->remove_cap( 'edit_published_compositions'   );
+// If uninstall not called from WordPress, then exit.
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit;
 }
